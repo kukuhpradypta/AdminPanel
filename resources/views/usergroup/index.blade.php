@@ -9,7 +9,7 @@
             <div class="col-md-12">
                 <div class="card border-0 shadow rounded">
                     <div class="card-body">
-                        <a href="usergroup.create" class="btn btn-md btn-success mb-3"><i class="fas fa-folder-plus"> Tambah
+                        <a href="usergroup.create" class="btn btn-md btn-success mb-3"><i class="fas fa-user-plus"> Tambah
                                 User Group</i></a>
                         <table class="table table-bordered">
                             <thead class="bg-dark">
