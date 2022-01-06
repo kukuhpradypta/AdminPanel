@@ -35,11 +35,11 @@
                 <input type="email" class="@eror('email') is-invalid @enderor" name="email" placeholder="Email" required
                     value="{{ old('email') }}" />
                 @error('email')
-                    <div class="invalid-feedback">{{ $message }}</div>
+                    <div class="invalid-feedback"></div>
                 @enderror
                 <input type="password" name="password" placeholder="Password" required />
                 @error('password')
-                    <div class="invalid-feedback">{{ $message }}</div>
+                    <div class="invalid-feedback"></div>
                 @enderror
                 <button class="mt-4" type="submit">Log In</button>
             </form>
@@ -47,8 +47,20 @@
 
         <div class="form-container sign-up-container">
             <form action="/regis" method="post">
-                @csrf
                 <h1 class="mb-4">Register</h1>
+                @if (session()->has('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
+                @if (session()->has('registerError'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ session('loginError') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+                @csrf
                 <input type="text" name="name" placeholder="Name" autofocus required value="{{ old('name') }}" />
                 @error('name')
                     <div class="invalid-feedback">{{ $message }}</div>
