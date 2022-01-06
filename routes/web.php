@@ -22,7 +22,7 @@ Route::post('/logout', [LoginregisController::class,'logout'])->middleware('auth
 Route::get('/loginregis', [LoginregisController::class,'index'])->name('login')->middleware('guest');
 Route::post('/regis', [LoginregisController::class,'store'])->middleware('guest');
 Route::get('/', [DashboardController::class,'index'])->middleware('auth');
-Route::get('/usergroup.index', [UsergroupController::class,'index'])->middleware('auth');
+Route::get('/usergroup.index', [UsergroupController::class,'index'])->middleware('auth')->name('usergroup.index');
 Route::get('/usergroup.create', [UsergroupController::class,'create'])->middleware('auth');
 Route::post('/usergroup.store', [UsergroupController::class,'store'])->middleware('auth');
 // Route::get('/usergroup.create', [UsergroupController::class,'create'])->middleware('auth');
