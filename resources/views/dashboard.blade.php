@@ -13,7 +13,8 @@
         integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
     <!-- CSS Libraries -->
-
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/components.css') }}">
@@ -76,7 +77,8 @@
                             <a href="#" class="nav-link has-dropdown"><i
                                     class="fas fa-fire"></i><span>Dashboard</span></a>
                             <ul class="dropdown-menu">
-                                <li><a class="nav-link" href="index-0.html">General Dashboard</a></li>
+                                <li><a class="nav-link" href="usergroup.index">User Group</a>
+                                </li>
                                 <li><a class="nav-link" href="index.html">Ecommerce Dashboard</a></li>
                             </ul>
                         </li>
@@ -91,8 +93,9 @@
             <div class="main-content">
                 <section class="section">
                     <div class="section-header">
-                        <h1>Blank Page</h1>
+                        <h1>@yield('title')</h1>
                     </div>
+                    @yield('content')
 
                     <div class="section-body">
                     </div>
