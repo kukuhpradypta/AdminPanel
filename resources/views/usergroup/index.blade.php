@@ -8,9 +8,8 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card border-0 shadow rounded">
-                    <div class="card-body">
-                        <a href="usergroup.create" class="btn btn-md btn-success mb-3"><i class="fas fa-user-plus"> Tambah
-                                User Group</i></a>
+                    <div class="card-body" style="font-family: 'Poppins', sans-serif;">
+                        <a href="usergroup.create" class="btn btn-md btn-success mb-3 "><i class="fas fa-user-plus"></i> Tambah User Group</a>
                         <table class="table table-bordered">
                             <thead class="bg-dark">
                                 <tr>
