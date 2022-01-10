@@ -27,7 +27,6 @@ Route::get('/usergroup.create', [UsergroupController::class,'create'])->middlewa
 Route::post('/usergroup.store', [UsergroupController::class,'store'])->middleware('auth');
 
 
-Route::resource('blog', BlogController::class);
 // Route::get('/usergroup.create', [UsergroupController::class,'create'])->middleware('auth');
 // Route::resource('usergroup', UsergroupController::class)->middleware('auth');
 // Route::resource('usergroup','UsergroupController');
