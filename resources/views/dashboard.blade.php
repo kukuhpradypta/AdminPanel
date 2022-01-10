@@ -18,11 +18,7 @@
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/components.css') }}">
-
-    {{-- Font --}}
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 </head>
 
 <body>
@@ -78,18 +74,18 @@
                     </div>
                     <ul class="sidebar-menu">
                         <li class="menu-header">Dashboard</li>
-                        <li class="nav-item dropdown">
-                            <a href="#" class="nav-link has-dropdown"><i
-                                    class="fas fa-fire"></i><span>Dashboard</span></a>
-                            <ul class="dropdown-menu">
-                                <li><a class="nav-link" href="usergroup.index">User Group</a>
-                                </li>
-                                <li><a class="nav-link" href="index.html">Ecommerce Dashboard</a></li>
-                            </ul>
-                        </li>
+                        @foreach ($mastermenus as $menu)
+                            <li class="nav-item dropdown">
 
-                        <li class="active"><a class="nav-link" href="#"><i class="far fa-square"></i>
-                                <span>Blank Page</span></a></li>
+                                <a href="{{ $menu->url }}" class="nav-link has-dropdown"><i
+                                        class="{{ $menu->icon }}"></i><span>{{ $menu->name }}</span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="nav-link" href="usergroup">User Group</a>
+                                    </li>
+                                    <li><a class="nav-link" href="index.html">Ecommerce Dashboard</a></li>
+                                </ul>
+                            </li>
+                        @endforeach
                     </ul>
                 </aside>
             </div>
@@ -117,7 +113,7 @@
             </footer>
         </div>
     </div>
-    
+
 
     <!-- General JS Scripts -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -139,6 +135,7 @@
     <script src="{{ asset('assets/js/custom.js') }}"></script>
 
     <!-- Page Specific JS File -->
+
 </body>
 
 </html>

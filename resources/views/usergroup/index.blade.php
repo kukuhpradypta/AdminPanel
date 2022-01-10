@@ -8,8 +8,10 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card border-0 shadow rounded">
-                    <div class="card-body" style="font-family: 'Poppins', sans-serif;">
-                        <a href="usergroup.create" class="btn btn-md btn-success mb-3 "><i class="fas fa-user-plus"></i> Tambah User Group</a>
+                    <div class="card-body">
+                        <a href="{{ route('usergroup.create') }}" class="btn btn-md btn-success mb-3"><i
+                                class="fas fa-folder-plus"> Tambah
+                                User Group</i></a>
                         <table class="table table-bordered">
                             <thead class="bg-dark">
                                 <tr>
@@ -25,10 +27,10 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $usergroup->name }}</td>
                                         <td class="text-center">
-                                            <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="#"
-                                                method="POST">
-                                                <a href="#" class="btn btn-sm btn-primary"><i
-                                                        class="fas fa-edit"></i></a>
+                                            <form onsubmit="return confirm('Apakah Anda Yakin ?');"
+                                                action="{{ route('usergroup.destroy', $usergroup->id) }}" method="POST">
+                                                <a href="{{ route('usergroup.edit', $usergroup->id) }}"
+                                                    class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-sm btn-danger"><i
@@ -43,14 +45,15 @@
                                 @endforelse
                             </tbody>
                         </table>
-                        {{ $usergroups->links() }}
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <script>
@@ -64,8 +67,7 @@
             toastr.error('{{ session('error') }}', 'GAGAL!');
         
         @endif
-    </script> --}}
-
+    </script>
 
 
 @endsection
