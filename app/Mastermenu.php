@@ -9,6 +9,7 @@ class Mastermenu extends Model
      protected $fillable = [
         'name',
         'icon',
+        'url',
         'sort',
         'menugroup',
         'ishidden',
