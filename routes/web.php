@@ -25,6 +25,9 @@ Route::get('/', [DashboardController::class,'index'])->middleware('auth');
 Route::get('/usergroup.index', [UsergroupController::class,'index'])->middleware('auth')->name('usergroup.index');
 Route::get('/usergroup.create', [UsergroupController::class,'create'])->middleware('auth');
 Route::post('/usergroup.store', [UsergroupController::class,'store'])->middleware('auth');
+
+
+Route::resource('blog', BlogController::class);
 // Route::get('/usergroup.create', [UsergroupController::class,'create'])->middleware('auth');
 // Route::resource('usergroup', UsergroupController::class)->middleware('auth');
 // Route::resource('usergroup','UsergroupController');
