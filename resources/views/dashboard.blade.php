@@ -80,7 +80,7 @@
                                 <a href="{{ $menu->url }}" class="nav-link has-dropdown"><i
                                         class="{{ $menu->icon }}"></i><span>{{ $menu->name }}</span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="nav-link" href="usergroup.index">User Group</a>
+                                    <li><a class="nav-link" href="usergroup">User Group</a>
                                     </li>
                                     <li><a class="nav-link" href="index.html">Ecommerce Dashboard</a></li>
                                 </ul>
