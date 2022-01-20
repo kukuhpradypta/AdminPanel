@@ -73,20 +73,17 @@
                         <a href="index.html">St</a>
                     </div>
                     <ul class="sidebar-menu">
-                        <li class="menu-header">Dashboard</li>
+                        {{-- <li class="menu-header">Dashboard</li> --}}
+                        <li>
                         @foreach ($mastermenus as $menu)
-                            <li class="nav-item dropdown">
+                            <li>
 
-                                <a href="{{ $menu->url }}" class="nav-link has-dropdown"><i
-                                        class="{{ $menu->icon }}"></i><span>{{ $menu->name }}</span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="nav-link" href="usergroup">User Group</a>
-                                    </li>
-                                    <li><a class="nav-link" href="index.html">Ecommerce Dashboard</a></li>
-                                </ul>
+                                <a href="{{ $menu->url }}" ><i
+                                        class="{{ $menu->icon }}"></i><span>{{ $menu->name }}</span></a>                   
                             </li>
                         @endforeach
-                    </ul>
+                        </li>
+                        </ul>
                 </aside>
             </div>
 
