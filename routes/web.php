@@ -29,6 +29,7 @@ Route::post('/regis', [LoginregisController::class,'store'])->middleware('guest'
 // Route::post('/usergroup.store', [UsergroupController::class,'store'])->middleware('auth');
 // Route::post('/usergroup.destroy', [UsergroupController::class,'destroy'])->middleware('auth');
 Route::resource('usergroup', UsergroupController::class)->middleware('auth');
+Route::get('usergroup/find/{id}', 'UsergroupController@find')->middleware('auth');
 // Route::get('/usergroup.create', [UsergroupController::class,'create'])->middleware('auth');
 // Route::resource('usergroup', UsergroupController::class)->middleware('auth');
 // Route::resource('usergroup','UsergroupController');

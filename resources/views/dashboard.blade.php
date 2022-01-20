@@ -101,6 +101,7 @@
                     <div class="section-body">
                     </div>
                 </section>
+                @yield('modal')
             </div>
             <footer class="main-footer">
                 <div class="footer-left">
