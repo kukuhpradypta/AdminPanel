@@ -1,6 +1,6 @@
 @extends('dashboard')
 @section('title')
-    User Group
+    User
 @endsection
 
 @section('content')
@@ -10,30 +10,32 @@
             <div class="col-md-12">
                 <div class="card border-0 shadow rounded">
                     <div class="card-body">
-                        <a href="{{ route('usergroup.create') }}" class="btn btn-md btn-success mb-3"><i
+                        <a href="{{ route('user.create') }}" class="btn btn-md btn-success mb-3"><i
                                 class="fas fa-folder-plus"> Tambah
-                                User Group</i></a>
+                                User </i></a>
                         <table class="table table-bordered">
                             <thead class="bg-dark">
                                 <tr>
                                     <th scope="col">NO</th>
                                     <th scope="col">Nama</th>
-                                    <th scope="col">Sort</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Password</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
 
-                                @forelse ($usergroups as $usergroup)
+                                @forelse ($users as $user)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $usergroup->name }}</td>
-                                        <td>{{ $usergroup->sort }}</td>
+                                        <td>{{ $user->name }}</td>
+                                        <td>{{ $user->email }}</td>
+                                        <td>{{ $user->password }}</td>
                                         <td class="text-center">
                                             <form onsubmit="return confirm('Apakah Anda Yakin ?');"
-                                                action="{{ route('usergroup.destroy', $usergroup->id) }}" method="POST">
+                                                action="{{ route('user.destroy', $user->id) }}" method="POST">
 
-                                                <div onclick="findData({{ $usergroup->id }})" class="btn btn btn-primary">
+                                                <div onclick="findData({{ $user->id }})" class="btn btn btn-primary">
                                                     <i class="fas fa-edit"></i>
                                                 </div>
 
@@ -46,7 +48,7 @@
                                     </tr>
                                 @empty
                                     <div class="alert alert-danger">
-                                        Data usergroup belum Tersedia.
+                                        Data user belum Tersedia.
                                     </div>
 
                                 @endforelse
@@ -73,10 +75,10 @@
         
         @endif
 
-        // FIND DATA USER GROUP
+        // FIND DATA USER 
         function findData(id) {
             $.ajax({
-                url: `{{ env('APP_URL') }}/usergroup/find/${id}`,
+                url: `{{ env('APP_URL') }}/user/find/${id}`,
                 method: 'GET',
                 accept: 'application/json',
                 data: {
@@ -85,9 +87,10 @@
                 success: function(response) {
                     console.log(response);
                     if (response.status == 'success') {
-                        $("#edit_nama_group").val(response.data.name);
-                        $("#edit_sort_group").val(response.data.sort);
-                        $("#exampleModal form").attr('action', `http://localhost:8000/usergroup/${id}`);
+                        $("#edit_nama_user").val(response.data.name);
+                        $("#edit_email_user").val(response.data.email);
+                        $("#edit_password_user").val(response.data.password);
+                        $("#exampleModal form").attr('action', `http://localhost:8000/user/${id}`);
                         $("#exampleModal").modal();
                     } else {
                         alert(response.msg)
@@ -120,9 +123,8 @@
 
                             <div class="form-group">
                                 <label class="font-weight-bold">Nama</label>
-                                <input id="edit_nama_group" type="text" class="form-control @error('name') is-invalid @enderror"
-                                    name="name" value="{{ old('name', $usergroup->name) }}"
-                                    placeholder="Masukkan Nama usergroup">
+                                <input id="edit_nama_user" type="text" class="form-control @error('name') is-invalid @enderror"
+                                    name="name" value="{{ old('name', $user->name) }}" placeholder="Masukkan Nama user">
 
                                 <!-- error message untuk name -->
                                 @error('name')
@@ -132,13 +134,27 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label class="font-weight-bold">Sort</label>
-                                <input id="edit_sort_group" type="text" class="form-control @error('sort') is-invalid @enderror"
-                                    name="sort" value="{{ old('sort', $usergroup->sort) }}"
-                                    placeholder="Masukkan sort usergroup">
+                                <label class="font-weight-bold">Email</label>
+                                <input id="edit_email_user" type="text"
+                                    class="form-control @error('email') is-invalid @enderror" name="email"
+                                    value="{{ old('email', $user->email) }}" placeholder="Masukkan email user">
 
-                                <!-- error message untuk sort -->
-                                @error('sort')
+                                <!-- error message untuk email -->
+                                @error('email')
+                                    <div class="alert alert-danger mt-2">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label class="font-weight-bold">Password</label>
+                                <input id="edit_password_user" type="text"
+                                    class="form-control @error('password') is-invalid @enderror" name="password"
+                                    value="{{ old('password', $user->password) }}" placeholder="Masukkan Password user">
+
+                                <!-- error message untuk password -->
+                                @error('password')
                                     <div class="alert alert-danger mt-2">
                                         {{ $message }}
                                     </div>
@@ -149,8 +165,8 @@
                                     Edit</i></button>
                             <button type="reset" class="btn btn-md btn-warning"><i class="fas fa-redo-alt text-white">
                                     Reset</i></button>
-                            <a href="{{ route('usergroup.index') }}" class="btn btn-md btn-success"><i
-                                    class="fas fa-backspace"> Kembali</i></a>
+                            <a href="{{ route('user.index') }}" class="btn btn-md btn-success"><i class="fas fa-backspace">
+                                    Kembali</i></a>
                         </form>
                     </div>
                 </div>

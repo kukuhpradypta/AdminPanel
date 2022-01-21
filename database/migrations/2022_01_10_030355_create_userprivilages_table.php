@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsergroupPrivilagesTable extends Migration
+class CreateUserPrivilagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,14 @@ class CreateUsergroupPrivilagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('usergroup_privilages', function (Blueprint $table) {
+        Schema::create('userprivilages', function (Blueprint $table) {
             $table->id();
-            $table->string('user_group');
+            $table->bigInteger('id_user');
+            $table->bigInteger('id_menu');
+            $table->string('namemenu');
+            $table->string('has_create');
+            $table->string('has_update');
+            $table->string('has_delete');
             $table->timestamps();
         });
     }
@@ -27,6 +32,6 @@ class CreateUsergroupPrivilagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('usergroup_privilages');
+        Schema::dropIfExists('userprivilages');
     }
 }

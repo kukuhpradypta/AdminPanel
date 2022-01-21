@@ -75,15 +75,16 @@
                     <ul class="sidebar-menu">
                         {{-- <li class="menu-header">Dashboard</li> --}}
                         <li>
-                        @foreach ($mastermenus as $menu)
-                            <li>
 
-                                <a href="{{ $menu->url }}" ><i
-                                        class="{{ $menu->icon }}"></i><span>{{ $menu->name }}</span></a>                   
-                            </li>
+                            @foreach ($mastermenus as $menu)
+                        <li>
+
+                            <a href="/{{ $menu->url }}"><i
+                                    class="{{ $menu->icon }}"></i><span>{{ $menu->name }}</span></a>
+                        </li>
                         @endforeach
                         </li>
-                        </ul>
+                    </ul>
                 </aside>
             </div>
 

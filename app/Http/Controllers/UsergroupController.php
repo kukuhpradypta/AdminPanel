@@ -5,20 +5,23 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Usergroup;
 use App\Mastermenu;
+use App\Userprivilage;
 
 class UsergroupController extends Controller
 {
     public function index(Request $request)
     {
         $mastermenus = Mastermenu::all();
+
         $usergroups = Usergroup::paginate(10);
-        return view('usergroup.index', compact('usergroups', 'mastermenus'));
+        return view('usergroup.index', compact('usergroups', 'mastermenus',));
     }
 
     public function create()
     {
+        $userprivilages = Userprivilage::all();
         $mastermenus = Mastermenu::all();
-        return view('usergroup.create', compact('mastermenus'));
+        return view('usergroup.create', compact('mastermenus', 'userprivilages'));
     }
 
     public function store(Request $request)
@@ -26,11 +29,13 @@ class UsergroupController extends Controller
         $this->validate($request, [
 
             'name'     => 'required',
+            'sort'     => 'required',
 
         ]);
 
         $usergroup = Usergroup::create([
             'name'     => $request->name,
+            'sort'     => $request->sort,
 
         ]);
 
@@ -42,16 +47,12 @@ class UsergroupController extends Controller
             return redirect()->route('usergroup.index')->with(['error' => 'Data Gagal Disimpan!']);
         }
     }
-    public function edit(Usergroup $usergroup)
-    {
-        $mastermenus = Mastermenu::all();
-        return view('usergroup.edit', compact('usergroup', 'mastermenus'));
-    }
 
     public function update(Request $request, Usergroup $usergroup)
     {
         $this->validate($request, [
             'name'     => 'required',
+            'sort'     => 'required',
         ]);
 
         //get data usergroup by ID
@@ -59,6 +60,7 @@ class UsergroupController extends Controller
 
         $usergroup->update([
             'name'     => $request->name,
+            'sort'     => $request->sort,
         ]);
 
         if ($usergroup) {

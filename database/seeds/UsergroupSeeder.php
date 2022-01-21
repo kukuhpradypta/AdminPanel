@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Usergroup;
+
 class UsergroupSeeder extends Seeder
 {
     /**
@@ -11,8 +12,9 @@ class UsergroupSeeder extends Seeder
      */
     public function run()
     {
-        $USERGROUP = new Userprivilage();
-        $USERGROUP->name = 'ariansyah';
+        $USERGROUP = new Usergroup();
+        $USERGROUP->name = 'admin';
+        $USERGROUP->sort = '1';
         $USERGROUP->save();
     }
 }

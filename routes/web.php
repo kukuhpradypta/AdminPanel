@@ -19,19 +19,17 @@ use App\Mastermenu;
 */
 
 Route::get('/', 'DashboardController@index')->middleware('auth');
+
 Route::post('/login', [LoginregisController::class, 'authenticate'])->middleware('guest');
 Route::post('/logout', [LoginregisController::class, 'logout'])->middleware('auth');
 Route::get('/loginregis', [LoginregisController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/regis', [LoginregisController::class, 'store'])->middleware('guest');
-// Route::get('/', [DashboardController::class,'index'])->middleware('auth');
-// Route::get('/usergroup.index', [UsergroupController::class,'index'])->middleware('auth');
-// Route::get('/usergroup.create', [UsergroupController::class,'create'])->middleware('auth');
-// Route::post('/usergroup.store', [UsergroupController::class,'store'])->middleware('auth');
-// Route::post('/usergroup.destroy', [UsergroupController::class,'destroy'])->middleware('auth');
+
 Route::resource('usergroup', UsergroupController::class)->middleware('auth');
 Route::get('usergroup/find/{id}', 'UsergroupController@find')->middleware('auth');
-// Route::get('/usergroup.create', [UsergroupController::class,'create'])->middleware('auth');
-// Route::resource('usergroup', UsergroupController::class)->middleware('auth');
-// Route::resource('usergroup','UsergroupController');
 
 Route::resource('mastermenu', MastermenuController::class)->middleware('auth');
+Route::get('mastermenu/find/{id}', 'MastermenuController@find')->middleware('auth');
+
+Route::resource('user', UserController::class)->middleware('auth');
+Route::get('user/find/{id}', 'userController@find')->middleware('auth');

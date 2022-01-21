@@ -7,7 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Usergroup extends Model
 {
 
-        protected $fillable = [
-        'name'
+    protected $fillable = [
+        'name',
+        'sort',
     ];
+    public function usergroupprivilage()
+    {
+        return $this->hasMany(Usergroupprivilage::class);
+    }
 }

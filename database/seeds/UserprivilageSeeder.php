@@ -2,7 +2,8 @@
 
 use Illuminate\Database\Seeder;
 use App\Userprivilage;
-class UserprivilagesSeeder extends Seeder
+
+class UserprivilageSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,10 +14,11 @@ class UserprivilagesSeeder extends Seeder
     {
         $PRIVILAGE = new Userprivilage();
         $PRIVILAGE->id_user = '1';
-        $PRIVILAGE->id_menu ='1';
-        $PRIVILAGE->has_create ='1';
-        $PRIVILAGE->has_update ='1';
-        $PRIVILAGE->has_delete ='1';
+        $PRIVILAGE->id_menu = '1';
+        $PRIVILAGE->namemenu = 'Mastermenu';
+        $PRIVILAGE->has_create = '1';
+        $PRIVILAGE->has_update = '1';
+        $PRIVILAGE->has_delete = '1';
         $PRIVILAGE->save();
     }
 }

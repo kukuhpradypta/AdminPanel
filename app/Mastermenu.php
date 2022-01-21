@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Mastermenu extends Model
 {
-     protected $fillable = [
+    protected $fillable = [
         'name',
         'icon',
         'url',
@@ -14,4 +14,8 @@ class Mastermenu extends Model
         'menugroup',
         'ishidden',
     ];
+    public function userprivilage()
+    {
+        return $this->hasMany(Userprivilage::class);
+    }
 }
