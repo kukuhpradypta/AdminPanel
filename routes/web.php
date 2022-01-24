@@ -2,10 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginregisController;
-use App\Http\Controllers\DashboardController;
 
-
-use App\Mastermenu;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,4 +29,8 @@ Route::resource('mastermenu', MastermenuController::class)->middleware('auth');
 Route::get('mastermenu/find/{id}', 'MastermenuController@find')->middleware('auth');
 
 Route::resource('user', UserController::class)->middleware('auth');
-Route::get('user/find/{id}', 'userController@find')->middleware('auth');
+Route::get('user/find/{id}', 'UserController@find')->middleware('auth');
+
+Route::resource('crudajax', CrudajaxController::class)->middleware('auth');
+Route::get('/crudajax/create', 'CrudajaxController@create')->middleware('auth');
+Route::get('/crudajax/store', 'CrudajaxController@store')->middleware('auth');

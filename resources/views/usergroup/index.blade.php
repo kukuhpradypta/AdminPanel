@@ -149,8 +149,6 @@
                                     Edit</i></button>
                             <button type="reset" class="btn btn-md btn-warning"><i class="fas fa-redo-alt text-white">
                                     Reset</i></button>
-                            <a href="{{ route('usergroup.index') }}" class="btn btn-md btn-success"><i
-                                    class="fas fa-backspace"> Kembali</i></a>
                         </form>
                     </div>
                 </div>
