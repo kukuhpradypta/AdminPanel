@@ -21,6 +21,7 @@ class CreateUserPrivilagesTable extends Migration
             $table->string('has_create');
             $table->string('has_update');
             $table->string('has_delete');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

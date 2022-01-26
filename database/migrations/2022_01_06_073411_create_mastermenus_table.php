@@ -21,6 +21,7 @@ class CreateMastermenusTable extends Migration
             $table->string('sort');
             $table->string('menugroup');
             $table->string('ishidden');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

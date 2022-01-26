@@ -17,6 +17,7 @@ class CreateUsergroupsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('sort');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
