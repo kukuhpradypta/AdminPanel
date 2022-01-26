@@ -10,9 +10,10 @@
             <div class="col-md-12">
                 <div class="card border-0 shadow rounded">
                     <div class="card-body">
-                        <a href="{{ route('usergroup.create') }}" class="btn btn-md btn-success mb-3"><i
-                                class="fas fa-folder-plus"> Tambah
-                                User Group</i></a>
+                        <button type="button" class="btn btn-success mb-4" onclick="create()">
+                            <i class="fas fa-folder-plus"> Tambah
+                                User Group</i>
+                        </button>
                         <table class="table table-bordered">
                             <thead class="bg-dark">
                                 <tr>
@@ -73,6 +74,16 @@
         
         @endif
 
+
+        $(document).ready(function() {});
+
+        function create() {
+            $.get("{{ url('usergroup') }}", {},
+                function(data, status) {
+                    $("#staticBackdrop").modal('show');
+
+                });
+        }
         // FIND DATA USER GROUP
         function findData(id) {
             $.ajax({
@@ -149,9 +160,97 @@
                                     Edit</i></button>
                             <button type="reset" class="btn btn-md btn-warning"><i class="fas fa-redo-alt text-white">
                                     Reset</i></button>
-                            <a href="{{ route('usergroup.index') }}" class="btn btn-md btn-success"><i
-                                    class="fas fa-backspace"> Kembali</i></a>
                         </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endsection
+    @section('modalcreate')
+        <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Create Data</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <form action="{{ route('usergroup.store') }}" method="POST" enctype="multipart/form-data">
+
+                            @csrf
+
+                            <div class="form-group">
+                                <label class="font-weight-bold">Nama</label>
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
+                                    value="{{ old('name') }}" placeholder="Masukkan Nama usergroup">
+
+                                <!-- error message untuk name -->
+                                @error('name')
+                                    <div class="alert alert-danger mt-2">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label class="font-weight-bold">Sort</label>
+                                <input type="text" class="form-control @error('sort') is-invalid @enderror" name="sort"
+                                    value="{{ old('sort') }}" placeholder="Masukkan Sort usergroup">
+
+                                <!-- error message untuk sort -->
+                                @error('sort')
+                                    <div class="alert alert-danger mt-2">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <div class="container pb-5">
+                                @foreach ($userprivilages as $userprivilage)
+                                    <h5>{{ $userprivilage->namemenu }}</h5>
+                                    <div class="row mb-4">
+
+                                        <div class="col-4 form-check">
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="has_create_{{ $userprivilage->id_menu }}"
+                                                {{ $userprivilage->has_create ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="has_create_{{ $userprivilage->id_menu }}">
+                                                create
+                                            </label>
+                                        </div>
+                                        <div class="col-4 form-check">
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="has_update_{{ $userprivilage->id_menu }}"
+                                                {{ $userprivilage->has_update ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="has_update_{{ $userprivilage->id_menu }}">
+                                                Update
+                                            </label>
+                                        </div>
+                                        <div class="col-4 form-check">
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                id="has_delete_{{ $userprivilage->id_menu }}"
+                                                {{ $userprivilage->has_delete ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="has_delete_{{ $userprivilage->id_menu }}">
+                                                Delete
+                                            </label>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+
+                            <button type="submit" class="btn btn-md btn-primary"><i class="fas fa-save">
+                                    Simpan</i></button>
+                            <button type="reset" class="btn btn-md btn-warning"><i class="fas fa-redo-alt text-white">
+                                    Reset</i></button>
+                            <a href="{{ route('usergroup.index') }}" class="btn btn-md btn-success"><i
+                                    class="fas fa-backspace">
+                                    Kembali</i></a>
+
+                        </form>
+
                     </div>
                 </div>
             </div>

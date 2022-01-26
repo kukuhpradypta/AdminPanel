@@ -12,32 +12,28 @@ class UsergroupController extends Controller
     public function index(Request $request)
     {
         $mastermenus = Mastermenu::all();
-
-        $usergroups = Usergroup::paginate(10);
-        return view('usergroup.index', compact('usergroups', 'mastermenus',));
-    }
-
-    public function create()
-    {
         $userprivilages = Userprivilage::all();
-        $mastermenus = Mastermenu::all();
-        return view('usergroup.create', compact('mastermenus', 'userprivilages'));
+        $usergroups = Usergroup::paginate(10);
+        return view('usergroup.index', compact('usergroups', 'mastermenus', 'userprivilages'));
     }
 
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $usergroup['name'] = $request->name;
+        $usergroup['sort'] = $request->sort;
+        Usergroup::insert($usergroup);
+        // $this->validate($request, [
 
-            'name'     => 'required',
-            'sort'     => 'required',
+        //     'name'     => 'required',
+        //     'sort'     => 'required',
 
-        ]);
+        // ]);
 
-        $usergroup = Usergroup::create([
-            'name'     => $request->name,
-            'sort'     => $request->sort,
+        // $usergroup = Usergroup::create([
+        //     'name'     => $request->name,
+        //     'sort'     => $request->sort,
 
-        ]);
+        // ]);
 
         if ($usergroup) {
             //redirect dengan pesan sukses

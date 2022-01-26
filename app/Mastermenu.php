@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Mastermenu extends Model
 {
+    use softDeletes;
     protected $fillable = [
         'name',
         'icon',
