@@ -10,38 +10,39 @@ class MastermenuController extends Controller
 {
     public function index()
     {
-        $mastermenus = Mastermenu::latest()->paginate(10);
+        $mastermenus = Mastermenu::paginate(10);
         return view('mastermenu.index', compact('mastermenus'));
-    }
-
-    public function create()
-    {
-        $mastermenus = Mastermenu::all();
-        return view('mastermenu.create', compact('mastermenus'));
     }
 
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $mastermenu['name'] = $request->name;
+        $mastermenu['icon'] = $request->icon;
+        $mastermenu['url'] = $request->url;
+        $mastermenu['sort'] = $request->sort;
+        $mastermenu['menugroup'] = $request->menugroup;
+        $mastermenu['ishidden'] = $request->ishidden;
+        Mastermenu::insert($mastermenu);
+        // $this->validate($request, [
 
-            'name'     => 'required',
-            'icon'     => 'required',
-            'url'     => 'required',
-            'sort'     => 'required',
-            'menugroup'     => 'required',
-            'ishidden'     => 'required',
+        //     'name'     => 'required',
+        //     'icon'     => 'required',
+        //     'url'     => 'required',
+        //     'sort'     => 'required',
+        //     'menugroup'     => 'required',
+        //     'ishidden'     => 'required',
 
-        ]);
+        // ]);
 
-        $mastermenu = Mastermenu::create([
-            'name'     => $request->name,
-            'icon'     => $request->icon,
-            'url'     => $request->url,
-            'sort'     => $request->sort,
-            'menugroup'     => $request->menugroup,
-            'ishidden'     => $request->ishidden,
+        // $mastermenu = Mastermenu::create([
+        //     'name'     => $request->name,
+        //     'icon'     => $request->icon,
+        //     'url'     => $request->url,
+        //     'sort'     => $request->sort,
+        //     'menugroup'     => $request->menugroup,
+        //     'ishidden'     => $request->ishidden,
 
-        ]);
+        // ]);
 
         if ($mastermenu) {
             //redirect dengan pesan sukses
