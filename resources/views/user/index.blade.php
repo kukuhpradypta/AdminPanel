@@ -149,7 +149,7 @@
 
                             <div class="form-group">
                                 <label class="font-weight-bold">Password</label>
-                                <input id="edit_password_user" type="text"
+                                <input id="edit_password_user" type="password"
                                     class="form-control @error('password') is-invalid @enderror" name="password"
                                     value="{{ old('password', $user->password) }}" placeholder="Masukkan Password user">
 
