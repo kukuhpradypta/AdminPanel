@@ -33,3 +33,6 @@ Route::get('mastermenu/find/{id}', 'MastermenuController@find')->middleware('aut
 
 Route::resource('user', UserController::class)->middleware('auth');
 Route::get('user/find/{id}', 'userController@find')->middleware('auth');
+
+Route::resource('userprivilage', UserprivilageController::class)->middleware('auth');
+Route::get('userprivilage/find/{id}', 'userprivilageController@find')->middleware('auth');
