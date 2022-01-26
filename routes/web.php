@@ -2,10 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginregisController;
-use App\Http\Controllers\DashboardController;
 
-
-use App\Mastermenu;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,3 +33,4 @@ Route::get('user/find/{id}', 'userController@find')->middleware('auth');
 
 Route::resource('userprivilage', UserprivilageController::class)->middleware('auth');
 Route::get('userprivilage/find/{id}', 'userprivilageController@find')->middleware('auth');
+
