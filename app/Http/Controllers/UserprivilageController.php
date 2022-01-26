@@ -16,12 +16,7 @@ class UserprivilageController extends Controller
         return view('userprivilage.index', compact('userprivilages', 'mastermenus',));
     }
 
-    public function create()
-    {
-        $userprivilages = Userprivilage::all();
-        $mastermenus = Mastermenu::all();
-        return view('userprivilage.create', compact('mastermenus', 'userprivilages'));
-    }
+
 
     public function store(Request $request)
     {
