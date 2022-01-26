@@ -32,4 +32,6 @@ Route::resource('user', UserController::class)->middleware('auth');
 Route::get('user/find/{id}', 'userController@find')->middleware('auth');
 
 Route::resource('userprivilage', UserprivilageController::class)->middleware('auth');
+Route::resource('userprivilageW', UserprivilageController::class)->middleware('auth');
+
 Route::get('userprivilage/find/{id}', 'userprivilageController@find')->middleware('auth');
