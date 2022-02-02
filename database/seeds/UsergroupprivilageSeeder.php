@@ -14,5 +14,6 @@ class UsergroupprivilageSeeder extends Seeder
     {
         $USERGROUPPRIVILAGE = new Usergroupprivilage();
         $USERGROUPPRIVILAGE->id_usergroup = '1';
+        $USERGROUPPRIVILAGE->save();
     }
 }

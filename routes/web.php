@@ -25,6 +25,9 @@ Route::post('/regis', [LoginregisController::class, 'store'])->middleware('guest
 Route::resource('usergroup', UsergroupController::class)->middleware('auth');
 Route::get('usergroup/find/{id}', 'UsergroupController@find')->middleware('auth');
 
+Route::resource('usergroupprivilage', UsergroupprivilageController::class)->middleware('auth');
+Route::get('usergroupprivilage/find/{id}', 'UsergroupprivilageController@find')->middleware('auth');
+
 Route::resource('mastermenu', MastermenuController::class)->middleware('auth');
 Route::get('mastermenu/find/{id}', 'MastermenuController@find')->middleware('auth');
 
