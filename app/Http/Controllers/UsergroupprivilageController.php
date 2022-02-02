@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Usergroup;
 use App\Usergroupprivilage;
 use App\Mastermenu;
-use App\Userprivilage;
+
 
 class UsergroupprivilageController extends Controller
 {
@@ -14,9 +14,8 @@ class UsergroupprivilageController extends Controller
     {
         $mastermenus = Mastermenu::all();
         $usergroups = Usergroup::all();
-        $userprivilages = Userprivilage::all();
         $usergroupprivilages = Usergroupprivilage::paginate(10);
-        return view('usergroupprivilage.index', compact('usergroupprivilages', 'mastermenus', 'usergroups', 'userprivilages'));
+        return view('usergroupprivilage.index', compact('usergroupprivilages', 'mastermenus', 'usergroups'));
     }
 
     public function store(Request $request)

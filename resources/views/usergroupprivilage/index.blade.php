@@ -30,9 +30,11 @@
                                         <td>{{ $usergroupprivilage->id_usergroup }}</td>
                                         <td class="text-center">
                                             <form onsubmit="return confirm('Apakah Anda Yakin ?');"
-                                                action="{{ route('usergroupprivilage.destroy', $usergroupprivilage->id) }}" method="POST">
+                                                action="{{ route('usergroupprivilage.destroy', $usergroupprivilage->id) }}"
+                                                method="POST">
 
-                                                <div onclick="findData({{ $usergroupprivilage->id }})" class="btn btn btn-primary">
+                                                <div onclick="findData({{ $usergroupprivilage->id }})"
+                                                    class="btn btn btn-primary">
                                                     <i class="fas fa-edit"></i>
                                                 </div>
 
@@ -95,7 +97,8 @@
                     console.log(response);
                     if (response.status == 'success') {
                         $("#edit_id_usergroup_group").val(response.data.id_usergroup);
-                        $("#exampleModal form").attr('action', `http://localhost:8000/usergroupprivilage/${id}`);
+                        $("#exampleModal form").attr('action',
+                        `http://localhost:8000/usergroupprivilage/${id}`);
                         $("#exampleModal").modal();
                     } else {
                         alert(response.msg)
@@ -138,7 +141,7 @@
                                         {{ $message }}
                                     </div>
                                 @enderror
-                            </div>     
+                            </div>
 
                             <button type="submit" class="btn btn-md btn-primary"><i class="fas fa-edit">
                                     Edit</i></button>
@@ -181,38 +184,7 @@
                                 @enderror
                             </div>
 
-                            <div class="container pb-5">
-                                @foreach ($userprivilages as $userprivilage)
-                                    <h5>{{ $userprivilage->namemenu }}</h5>
-                                    <div class="row mb-4">
 
-                                        <div class="col-4 form-check">
-                                            <input class="form-check-input" type="checkbox" value=""
-                                                id="has_create_{{ $userprivilage->id_menu }}"
-                                                {{ $userprivilage->has_create ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="has_create_{{ $userprivilage->id_menu }}">
-                                                create
-                                            </label>
-                                        </div>
-                                        <div class="col-4 form-check">
-                                            <input class="form-check-input" type="checkbox" value=""
-                                                id="has_update_{{ $userprivilage->id_menu }}"
-                                                {{ $userprivilage->has_update ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="has_update_{{ $userprivilage->id_menu }}">
-                                                Update
-                                            </label>
-                                        </div>
-                                        <div class="col-4 form-check">
-                                            <input class="form-check-input" type="checkbox" value=""
-                                                id="has_delete_{{ $userprivilage->id_menu }}"
-                                                {{ $userprivilage->has_delete ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="has_delete_{{ $userprivilage->id_menu }}">
-                                                Delete
-                                            </label>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
 
                             <button type="submit" class="btn btn-md btn-primary"><i class="fas fa-save">
                                     Simpan</i></button>
