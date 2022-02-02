@@ -17,7 +17,6 @@ class CreateUserPrivilagesTable extends Migration
             $table->id();
             $table->bigInteger('id_user');
             $table->bigInteger('id_menu');
-            $table->string('namemenu');
             $table->string('has_create');
             $table->string('has_update');
             $table->string('has_delete');

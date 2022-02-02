@@ -10,7 +10,7 @@
             <div class="col-md-12">
                 <div class="card border-0 shadow rounded">
                     <div class="card-body">
-                    <button type="button" class="btn btn-success mb-4" onclick="create()">
+                        <button type="button" class="btn btn-success mb-4" onclick="create()">
                             <i class="fas fa-folder-plus"> Tambah
                                 User privilage</i>
                         </button>
@@ -20,7 +20,7 @@
                                     <th scope="col">NO</th>
                                     <th scope="col">ID User</th>
                                     <th scope="col">ID Menu</th>
-                                    <th scope="col">Nama Menu</th>
+
                                     <th scope="col">Tambah</th>
                                     <th scope="col">Edit</th>
                                     <th scope="col">hapus</th>
@@ -34,15 +34,16 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $userprivilage->id_user }}</td>
                                         <td>{{ $userprivilage->id_menu }}</td>
-                                        <td>{{ $userprivilage->namemenu }}</td>
                                         <td>{{ $userprivilage->has_create }}</td>
                                         <td>{{ $userprivilage->has_update }}</td>
                                         <td>{{ $userprivilage->has_delete }}</td>
                                         <td class="text-center">
                                             <form onsubmit="return confirm('Apakah Anda Yakin ?');"
-                                                action="{{ route('userprivilage.destroy', $userprivilage->id) }}" method="POST">
+                                                action="{{ route('userprivilage.destroy', $userprivilage->id) }}"
+                                                method="POST">
 
-                                                <div onclick="findData({{ $userprivilage->id }})" class="btn btn btn-primary">
+                                                <div onclick="findData({{ $userprivilage->id }})"
+                                                    class="btn btn btn-primary">
                                                     <i class="fas fa-edit"></i>
                                                 </div>
 
@@ -83,13 +84,13 @@
         @endif
         $(document).ready(function() {});
 
-function create() {
-    $.get("{{ url('userprivilage') }}", {},
-        function(data, status) {
-            $("#staticBackdrop").modal('show');
+        function create() {
+            $.get("{{ url('userprivilage') }}", {},
+                function(data, status) {
+                    $("#staticBackdrop").modal('show');
 
-        });
-}
+                });
+        }
         // FIND DATA USER GROUP
         function findData(id) {
             $.ajax({
@@ -104,7 +105,6 @@ function create() {
                     if (response.status == 'success') {
                         $("#edit_id_user_group").val(response.data.id_user);
                         $("#edit_id_menu_group").val(response.data.id_menu);
-                        $("#edit_namemenu_group").val(response.data.namemenu);
                         $("#edit_has_create_group").val(response.data.has_create);
                         $("#edit_has_update_group").val(response.data.has_update);
                         $("#edit_has_delete_group").val(response.data.has_delete);
@@ -140,12 +140,12 @@ function create() {
 
 
                             <div class="form-group">
-                                <label class="font-weight-bold">ID User</label>
-                                <input id="edit_id_user_group" type="text" class="form-control @error('id_user') is-invalid @enderror"
-                                    name="id_user" value="{{ old('id_user', $userprivilage->id_user) }}"
-                                    placeholder="Masukkan ID User">
-
-                                <!-- error message untuk id user -->
+                                <label class="font-weight-bold">Nama User</label>
+                                <select name="id_user" class="form-control @error('id_user') is-invalid @enderror">
+                                    @foreach ($users as $user)
+                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                    @endforeach
+                                </select>
                                 @error('id_user')
                                     <div class="alert alert-danger mt-2">
                                         {{ $message }}
@@ -153,12 +153,12 @@ function create() {
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label class="font-weight-bold">ID Menu</label>
-                                <input id="edit_id_menu_group" type="text" class="form-control @error('id_menu') is-invalid @enderror"
-                                    name="id_menu" value="{{ old('id_menu', $userprivilage->id_menu) }}"
-                                    placeholder="Masukkan ID Menu">
-
-                                <!-- error message untuk id menu -->
+                                <label class="font-weight-bold">Nama Menu</label>
+                                <select name="id_menu" class="form-control @error('id_menu') is-invalid @enderror">
+                                    @foreach ($mastermenus as $mastermenu)
+                                        <option value="{{ $mastermenu->id }}">{{ $mastermenu->name }}</option>
+                                    @endforeach
+                                </select>
                                 @error('id_menu')
                                     <div class="alert alert-danger mt-2">
                                         {{ $message }}
@@ -166,22 +166,10 @@ function create() {
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label class="font-weight-bold">Nama Menu</label>
-                                <input id="edit_namemenu_group" type="text" class="form-control @error('namemenu') is-invalid @enderror"
-                                    name="namemenu" value="{{ old('namemenu', $userprivilage->namemenu) }}"
-                                    placeholder="Masukkan Nama Menu">
-
-                                <!-- error message untuk nama menu -->
-                                @error('namemenu')
-                                    <div class="alert alert-danger mt-2">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="form-group">
                                 <label class="font-weight-bold">Has Create</label>
-                                <input id="edit_has_create_group" type="text" class="form-control @error('has_create') is-invalid @enderror"
-                                    name="has_create" value="{{ old('has_create', $userprivilage->has_create) }}"
+                                <input id="edit_has_create_group" type="text"
+                                    class="form-control @error('has_create') is-invalid @enderror" name="has_create"
+                                    value="{{ old('has_create', $userprivilage->has_create) }}"
                                     placeholder="Masukkan Has Create">
 
                                 <!-- error message untuk has create -->
@@ -193,8 +181,9 @@ function create() {
                             </div>
                             <div class="form-group">
                                 <label class="font-weight-bold">Has Update</label>
-                                <input id="edit_has_update_group" type="text" class="form-control @error('has_update') is-invalid @enderror"
-                                    name="has_update" value="{{ old('has_update', $userprivilage->has_update) }}"
+                                <input id="edit_has_update_group" type="text"
+                                    class="form-control @error('has_update') is-invalid @enderror" name="has_update"
+                                    value="{{ old('has_update', $userprivilage->has_update) }}"
                                     placeholder="Masukkan Has Update">
 
                                 <!-- error message untuk has update -->
@@ -206,8 +195,9 @@ function create() {
                             </div>
                             <div class="form-group">
                                 <label class="font-weight-bold">Has Delete</label>
-                                <input id="edit_has_delete_group" type="text" class="form-control @error('has_delete') is-invalid @enderror"
-                                    name="has_delete" value="{{ old('has_delete', $userprivilage->has_delete) }}"
+                                <input id="edit_has_delete_group" type="text"
+                                    class="form-control @error('has_delete') is-invalid @enderror" name="has_delete"
+                                    value="{{ old('has_delete', $userprivilage->has_delete) }}"
                                     placeholder="Masukkan has delete">
 
                                 <!-- error message untuk has delete -->
@@ -243,92 +233,82 @@ function create() {
                     </div>
                     <div class="modal-body">
 
-                    <form action="{{ route('userprivilage.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('userprivilage.store') }}" method="POST" enctype="multipart/form-data">
 
-@csrf
+                            @csrf
 
-<div class="form-group">
-    <label class="font-weight-bold">ID User</label>
-    <input type="text" class="form-control @error('id_user') is-invalid @enderror" name="id_user"
-        value="{{ old('id_user') }}" placeholder="Masukkan ID User">
+                            <div class="form-group">
+                                <label class="font-weight-bold">Nama User</label>
+                                <select name="id_user" class="form-control @error('id_user') is-invalid @enderror">
+                                    @foreach ($users as $user)
+                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('id_user')
+                                    <div class="alert alert-danger mt-2">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label class="font-weight-bold">Nama Menu</label>
+                                <select name="id_menu" class="form-control @error('id_menu') is-invalid @enderror">
+                                    @foreach ($mastermenus as $mastermenu)
+                                        <option value="{{ $mastermenu->id }}">{{ $mastermenu->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('id_menu')
+                                    <div class="alert alert-danger mt-2">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label class="font-weight-bold">Has Create</label>
+                                <input type="text" class="form-control @error('has_create') is-invalid @enderror"
+                                    name="has_create" value="{{ old('has_create') }}" placeholder="Masukkan Has Create">
 
-    <!-- error message untuk name -->
-    @error('id_user')
-        <div class="alert alert-danger mt-2">
-            {{ $message }}
-        </div>
-    @enderror
-</div>
-<div class="form-group">
-    <label class="font-weight-bold">ID Menu</label>
-    <input type="text" class="form-control @error('id_menu') is-invalid @enderror" name="id_menu"
-        value="{{ old('id_menu') }}" placeholder="Masukkan ID Menu">
+                                <!-- error message untuk name -->
+                                @error('has_create')
+                                    <div class="alert alert-danger mt-2">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label class="font-weight-bold">Has Update</label>
+                                <input type="text" class="form-control @error('has_update') is-invalid @enderror"
+                                    name="has_update" value="{{ old('has_update') }}" placeholder="Masukkan Has Update">
 
-    <!-- error message untuk name -->
-    @error('id_menu')
-        <div class="alert alert-danger mt-2">
-            {{ $message }}
-        </div>
-    @enderror
-</div>
-<div class="form-group">
-    <label class="font-weight-bold">Nama Menu</label>
-    <input type="text" class="form-control @error('namemenu') is-invalid @enderror" name="namemenu"
-        value="{{ old('namemenu') }}" placeholder="Masukkan Nama Menu">
+                                <!-- error message untuk name -->
+                                @error('has_update')
+                                    <div class="alert alert-danger mt-2">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label class="font-weight-bold">Has Delete</label>
+                                <input type="text" class="form-control @error('has_delete') is-invalid @enderror"
+                                    name="has_delete" value="{{ old('has_delete') }}" placeholder="Masukkan Has Delete">
 
-    <!-- error message untuk name -->
-    @error('namemenu')
-        <div class="alert alert-danger mt-2">
-            {{ $message }}
-        </div>
-    @enderror
-</div>
-<div class="form-group">
-    <label class="font-weight-bold">Has Create</label>
-    <input type="text" class="form-control @error('has_create') is-invalid @enderror" name="has_create"
-        value="{{ old('has_create') }}" placeholder="Masukkan Has Create">
+                                <!-- error message untuk name -->
+                                @error('has_delete')
+                                    <div class="alert alert-danger mt-2">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
 
-    <!-- error message untuk name -->
-    @error('has_create')
-        <div class="alert alert-danger mt-2">
-            {{ $message }}
-        </div>
-    @enderror
-</div>
-<div class="form-group">
-    <label class="font-weight-bold">Has Update</label>
-    <input type="text" class="form-control @error('has_update') is-invalid @enderror" name="has_update"
-        value="{{ old('has_update') }}" placeholder="Masukkan Has Update">
+                            <button type="submit" class="btn btn-md btn-primary"><i class="fas fa-save">
+                                    Simpan</i></button>
+                            <button type="reset" class="btn btn-md btn-warning"><i class="fas fa-redo-alt text-white">
+                                    Reset</i></button>
+                            <a href="{{ route('userprivilage.index') }}" class="btn btn-md btn-success"><i
+                                    class="fas fa-backspace">
+                                    Kembali</i></a>
 
-    <!-- error message untuk name -->
-    @error('has_update')
-        <div class="alert alert-danger mt-2">
-            {{ $message }}
-        </div>
-    @enderror
-</div>
-<div class="form-group">
-    <label class="font-weight-bold">Has Delete</label>
-    <input type="text" class="form-control @error('has_delete') is-invalid @enderror" name="has_delete"
-        value="{{ old('has_delete') }}" placeholder="Masukkan Has Delete">
-
-    <!-- error message untuk name -->
-    @error('has_delete')
-        <div class="alert alert-danger mt-2">
-            {{ $message }}
-        </div>
-    @enderror
-</div>
-
-<button type="submit" class="btn btn-md btn-primary"><i class="fas fa-save">
-        Simpan</i></button>
-<button type="reset" class="btn btn-md btn-warning"><i class="fas fa-redo-alt text-white">
-        Reset</i></button>
-<a href="{{ route('userprivilage.index') }}" class="btn btn-md btn-success"><i
-        class="fas fa-backspace">
-        Kembali</i></a>
-
-</form>
+                        </form>
 
                     </div>
                 </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Userprivilage;
+use App\User;
 use App\Mastermenu;
 
 class UserprivilageController extends Controller
@@ -11,9 +12,9 @@ class UserprivilageController extends Controller
     public function index(Request $request)
     {
         $mastermenus = Mastermenu::all();
-
+        $users = User::all();
         $userprivilages = Userprivilage::paginate(10);
-        return view('userprivilage.index', compact('userprivilages', 'mastermenus',));
+        return view('userprivilage.index', compact('userprivilages', 'mastermenus', 'users'));
     }
 
 
@@ -24,7 +25,6 @@ class UserprivilageController extends Controller
 
             'id_user'     => 'required',
             'id_menu'     => 'required',
-            'namemenu'     => 'required',
             'has_create'     => 'required',
             'has_update'     => 'required',
             'has_delete'     => 'required',
@@ -34,11 +34,10 @@ class UserprivilageController extends Controller
         $userprivilage = Userprivilage::create([
             'id_user'     => $request->id_user,
             'id_menu'     => $request->id_menu,
-            'namemenu'     => $request->namemenu,
             'has_create'     => $request->has_create,
             'has_update'     => $request->has_update,
             'has_delete'     => $request->has_delete,
-            
+
         ]);
 
         if ($userprivilage) {
@@ -55,7 +54,6 @@ class UserprivilageController extends Controller
         $this->validate($request, [
             'id_user'     => 'required',
             'id_menu'     => 'required',
-            'namemenu'     => 'required',
             'has_create'     => 'required',
             'has_update'     => 'required',
             'has_delete'     => 'required',
@@ -67,7 +65,6 @@ class UserprivilageController extends Controller
         $userprivilage->update([
             'id_user'     => $request->id_user,
             'id_menu'     => $request->id_menu,
-            'namemenu'     => $request->namemenu,
             'has_create'     => $request->has_create,
             'has_update'     => $request->has_update,
             'has_delete'     => $request->has_delete,
@@ -123,4 +120,3 @@ class UserprivilageController extends Controller
         }
     }
 }
-

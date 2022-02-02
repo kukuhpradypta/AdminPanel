@@ -15,7 +15,6 @@ class UserprivilageSeeder extends Seeder
         $PRIVILAGE = new Userprivilage();
         $PRIVILAGE->id_user = '1';
         $PRIVILAGE->id_menu = '1';
-        $PRIVILAGE->namemenu = 'Mastermenu';
         $PRIVILAGE->has_create = '1';
         $PRIVILAGE->has_update = '1';
         $PRIVILAGE->has_delete = '1';
