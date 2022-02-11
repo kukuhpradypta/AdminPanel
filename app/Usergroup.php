@@ -10,10 +10,13 @@ class Usergroup extends Model
     use softDeletes;
     protected $fillable = [
         'name',
-        'sort',
     ];
     public function usergroupprivilage()
     {
         return $this->hasMany(Usergroupprivilage::class);
+    }
+    public function mastermenu()
+    {
+        return $this->belongsTo(Mastermenu::class);
     }
 }

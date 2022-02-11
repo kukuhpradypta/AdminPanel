@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Mastermenu;
+use Illuminate\Support\Facades\DB;
 
 class MastermenuSeeder extends Seeder
 {
@@ -12,6 +12,8 @@ class MastermenuSeeder extends Seeder
      */
     public function run()
     {
+
+
         // $MASTERMENU = new Mastermenu();
         // $MASTERMENU->name = 'Mastermenu';
         // $MASTERMENU->icon = 'fas fa-book';
@@ -63,7 +65,6 @@ class MastermenuSeeder extends Seeder
             ],
         ];
 
-        \DB::table('mastermenus')->insert($MASTERMENU);
-
+        DB::table('mastermenus')->insert($MASTERMENU);
     }
 }

@@ -19,7 +19,6 @@
                                     <th scope="col">NO</th>
                                     <th scope="col">Nama</th>
                                     <th scope="col">Email</th>
-                                    <th scope="col">Password</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -30,7 +29,6 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
-                                        <td>{{ $user->password }}</td>
                                         <td class="text-center">
                                             <form onsubmit="return confirm('Apakah Anda Yakin ?');"
                                                 action="{{ route('user.destroy', $user->id) }}" method="POST">

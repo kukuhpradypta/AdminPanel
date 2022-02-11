@@ -21,6 +21,11 @@ class UsergroupprivilageController extends Controller
     public function store(Request $request)
     {
         $usergroupprivilage['id_usergroup'] = $request->id_usergroup;
+        $usergroupprivilage['id_menu'] = $request->id_menu;
+        $usergroupprivilage['has_view'] = $request->has_view;
+        $usergroupprivilage['has_create'] = $request->has_create;
+        $usergroupprivilage['has_update'] = $request->has_update;
+        $usergroupprivilage['has_delete'] = $request->has_delete;
 
         Usergroupprivilage::insert($usergroupprivilage);
         // $this->validate($request, [
@@ -49,6 +54,11 @@ class UsergroupprivilageController extends Controller
     {
         $this->validate($request, [
             'id_usergroup'     => 'required',
+            'id_menu'     => 'required',
+            'has_view'     => 'required',
+            'has_create'     => 'required',
+            'has_update'     => 'required',
+            'has_delete'     => 'required',
         ]);
 
         //get data usergroup by ID
@@ -56,6 +66,11 @@ class UsergroupprivilageController extends Controller
 
         $usergroupprivilage->update([
             'id_usergroup'     => $request->id_usergroup,
+            'id_menu'     => $request->id_usergroup,
+            'has_view'     => $request->id_usergroup,
+            'has_create'     => $request->id_usergroup,
+            'has_update'     => $request->id_usergroup,
+            'has_delete'     => $request->id_usergroup,
         ]);
 
         if ($usergroupprivilage) {

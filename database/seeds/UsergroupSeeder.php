@@ -14,7 +14,6 @@ class UsergroupSeeder extends Seeder
     {
         $USERGROUP = new Usergroup();
         $USERGROUP->name = 'admin';
-        $USERGROUP->sort = '1';
         $USERGROUP->save();
     }
 }

@@ -20,10 +20,10 @@
                                     <th scope="col">NO</th>
                                     <th scope="col">ID User</th>
                                     <th scope="col">ID Menu</th>
-
-                                    <th scope="col">Tambah</th>
-                                    <th scope="col">Edit</th>
-                                    <th scope="col">hapus</th>
+                                    <th scope="col">view</th>
+                                    <th scope="col">create</th>
+                                    <th scope="col">update</th>
+                                    <th scope="col">delete</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -34,6 +34,7 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $userprivilage->id_user }}</td>
                                         <td>{{ $userprivilage->id_menu }}</td>
+                                        <td>{{ $userprivilage->has_view }}</td>
                                         <td>{{ $userprivilage->has_create }}</td>
                                         <td>{{ $userprivilage->has_update }}</td>
                                         <td>{{ $userprivilage->has_delete }}</td>
@@ -105,6 +106,7 @@
                     if (response.status == 'success') {
                         $("#edit_id_user_group").val(response.data.id_user);
                         $("#edit_id_menu_group").val(response.data.id_menu);
+                        $("#edit_has_view_group").val(response.data.has_view);
                         $("#edit_has_create_group").val(response.data.has_create);
                         $("#edit_has_update_group").val(response.data.has_update);
                         $("#edit_has_delete_group").val(response.data.has_delete);
@@ -160,6 +162,19 @@
                                     @endforeach
                                 </select>
                                 @error('id_menu')
+                                    <div class="alert alert-danger mt-2">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label class="font-weight-bold">Has view</label>
+                                <input id="edit_has_view_group" type="text"
+                                    class="form-control @error('has_view') is-invalid @enderror" name="has_view"
+                                    value="{{ old('has_view', $userprivilage->has_view) }}" placeholder="Masukkan Has view">
+
+                                <!-- error message untuk has view -->
+                                @error('has_view')
                                     <div class="alert alert-danger mt-2">
                                         {{ $message }}
                                     </div>
@@ -258,6 +273,18 @@
                                     @endforeach
                                 </select>
                                 @error('id_menu')
+                                    <div class="alert alert-danger mt-2">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label class="font-weight-bold">Has view</label>
+                                <input type="text" class="form-control @error('has_view') is-invalid @enderror" name="has_view"
+                                    value="{{ old('has_view') }}" placeholder="Masukkan Has view">
+
+                                <!-- error message untuk name -->
+                                @error('has_view')
                                     <div class="alert alert-danger mt-2">
                                         {{ $message }}
                                     </div>

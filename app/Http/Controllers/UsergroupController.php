@@ -5,33 +5,37 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Usergroup;
 use App\Mastermenu;
-use App\Userprivilage;
+use App\Usergroupprivilage;
 
 class UsergroupController extends Controller
 {
     public function index(Request $request)
     {
         $mastermenus = Mastermenu::all();
-        $userprivilages = Userprivilage::all();
+        $usergroupprivilages = Usergroupprivilage::all();
         $usergroups = Usergroup::paginate(10);
-        return view('usergroup.index', compact('usergroups', 'mastermenus', 'userprivilages'));
+        return view('usergroup.index', compact('usergroups', 'mastermenus', 'usergroupprivilages'));
     }
 
     public function store(Request $request)
     {
         $usergroup['name'] = $request->name;
-        $usergroup['sort'] = $request->sort;
         Usergroup::insert($usergroup);
+        $usergroupprivilage['id_usergroup'] = $request->id_usergroup;
+        $usergroupprivilage['id_menu'] = $request->id_menu;
+        $usergroupprivilage['has_view'] = $request->has_view;
+        $usergroupprivilage['has_create'] = $request->has_create;
+        $usergroupprivilage['has_update'] = $request->has_update;
+        $usergroupprivilage['has_delete'] = $request->has_delete;
+        Usergroupprivilage::insert($usergroupprivilage);
         // $this->validate($request, [
 
         //     'name'     => 'required',
-        //     'sort'     => 'required',
 
         // ]);
 
         // $usergroup = Usergroup::create([
         //     'name'     => $request->name,
-        //     'sort'     => $request->sort,
 
         // ]);
 
@@ -48,7 +52,6 @@ class UsergroupController extends Controller
     {
         $this->validate($request, [
             'name'     => 'required',
-            'sort'     => 'required',
         ]);
 
         //get data usergroup by ID
@@ -56,7 +59,7 @@ class UsergroupController extends Controller
 
         $usergroup->update([
             'name'     => $request->name,
-            'sort'     => $request->sort,
+
         ]);
 
         if ($usergroup) {

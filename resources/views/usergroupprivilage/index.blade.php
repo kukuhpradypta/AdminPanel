@@ -19,6 +19,11 @@
                                 <tr>
                                     <th scope="col">NO</th>
                                     <th scope="col">ID User Group</th>
+                                    <th scope="col">ID Menu</th>
+                                    <th scope="col">view</th>
+                                    <th scope="col">create</th>
+                                    <th scope="col">update</th>
+                                    <th scope="col">delete</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -28,6 +33,11 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $usergroupprivilage->id_usergroup }}</td>
+                                        <td>{{ $usergroupprivilage->id_menu }}</td>
+                                        <td>{{ $usergroupprivilage->has_view }}</td>
+                                        <td>{{ $usergroupprivilage->has_create }}</td>
+                                        <td>{{ $usergroupprivilage->has_update }}</td>
+                                        <td>{{ $usergroupprivilage->has_delete }}</td>
                                         <td class="text-center">
                                             <form onsubmit="return confirm('Apakah Anda Yakin ?');"
                                                 action="{{ route('usergroupprivilage.destroy', $usergroupprivilage->id) }}"
@@ -97,8 +107,13 @@
                     console.log(response);
                     if (response.status == 'success') {
                         $("#edit_id_usergroup_group").val(response.data.id_usergroup);
+                        $("#edit_id_menu_group").val(response.data.id_menu);
+                        $("#edit_has_view_group").val(response.data.has_view);
+                        $("#edit_has_create_group").val(response.data.has_create);
+                        $("#edit_has_update_group").val(response.data.has_update);
+                        $("#edit_has_delete_group").val(response.data.has_delete);
                         $("#exampleModal form").attr('action',
-                        `http://localhost:8000/usergroupprivilage/${id}`);
+                            `http://localhost:8000/usergroupprivilage/${id}`);
                         $("#exampleModal").modal();
                     } else {
                         alert(response.msg)
@@ -130,13 +145,84 @@
 
 
                             <div class="form-group">
-                                <label class="font-weight-bold">ID User Group</label>
-                                <select name="id_usergroup" class="form-control @error('id_usergroup') is-invalid @enderror">
-                                    @foreach ($usergroups as $usergroup)
-                                        <option value="{{ $usergroup->id }}">{{ $usergroup->name }}</option>
-                                    @endforeach
-                                </select>
+                                <label class="font-weight-bold">user group</label>
+                                <input id="edit_id_user_group" type="text"
+                                    class="form-control @error('id_usergroup') is-invalid @enderror" name="id_usergroup"
+                                    value="{{ old('id_usergroup', $usergroupprivilage->id_usergroup) }}"
+                                    placeholder="Masukkan user group">
+
+                                <!-- error message untuk has view -->
                                 @error('id_usergroup')
+                                    <div class="alert alert-danger mt-2">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label class="font-weight-bold">nama menu</label>
+                                <input id="edit_id_menu_group" type="text"
+                                    class="form-control @error('id_menu') is-invalid @enderror" name="id_menu"
+                                    value="{{ old('id_menu', $usergroupprivilage->id_menu) }}"
+                                    placeholder="Masukkan nama menu">
+
+                                <!-- error message untuk has view -->
+                                @error('id_menu')
+                                    <div class="alert alert-danger mt-2">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label class="font-weight-bold">Has view</label>
+                                <input id="edit_has_view_group" type="text"
+                                    class="form-control @error('has_view') is-invalid @enderror" name="has_view"
+                                    value="{{ old('has_view', $usergroupprivilage->has_view) }}"
+                                    placeholder="Masukkan Has view">
+
+                                <!-- error message untuk has view -->
+                                @error('has_view')
+                                    <div class="alert alert-danger mt-2">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label class="font-weight-bold">Has Create</label>
+                                <input id="edit_has_create_group" type="text"
+                                    class="form-control @error('has_create') is-invalid @enderror" name="has_create"
+                                    value="{{ old('has_create', $usergroupprivilage->has_create) }}"
+                                    placeholder="Masukkan Has Create">
+
+                                <!-- error message untuk has create -->
+                                @error('has_create')
+                                    <div class="alert alert-danger mt-2">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label class="font-weight-bold">Has Update</label>
+                                <input id="edit_has_update_group" type="text"
+                                    class="form-control @error('has_update') is-invalid @enderror" name="has_update"
+                                    value="{{ old('has_update', $usergroupprivilage->has_update) }}"
+                                    placeholder="Masukkan Has Update">
+
+                                <!-- error message untuk has update -->
+                                @error('has_update')
+                                    <div class="alert alert-danger mt-2">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label class="font-weight-bold">Has Delete</label>
+                                <input id="edit_has_delete_group" type="text"
+                                    class="form-control @error('has_delete') is-invalid @enderror" name="has_delete"
+                                    value="{{ old('has_delete', $usergroupprivilage->has_delete) }}"
+                                    placeholder="Masukkan has delete">
+
+                                <!-- error message untuk has delete -->
+                                @error('has_delete')
                                     <div class="alert alert-danger mt-2">
                                         {{ $message }}
                                     </div>
@@ -171,13 +257,84 @@
                             @csrf
 
                             <div class="form-group">
-                                <label class="font-weight-bold">ID User Group</label>
-                                <select name="id_usergroup" class="form-control @error('id_usergroup') is-invalid @enderror">
-                                    @foreach ($usergroups as $usergroup)
-                                        <option value="{{ $usergroup->id }}">{{ $usergroup->name }}</option>
-                                    @endforeach
-                                </select>
+                                <label class="font-weight-bold">user group</label>
+                                <input id="edit_id_user_group" type="text"
+                                    class="form-control @error('id_usergroup') is-invalid @enderror" name="id_usergroup"
+                                    value="{{ old('id_usergroup', $usergroupprivilage->id_usergroup) }}"
+                                    placeholder="Masukkan user group">
+
+                                <!-- error message untuk has view -->
                                 @error('id_usergroup')
+                                    <div class="alert alert-danger mt-2">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label class="font-weight-bold">nama menu</label>
+                                <input id="edit_id_menu_group" type="text"
+                                    class="form-control @error('id_menu') is-invalid @enderror" name="id_menu"
+                                    value="{{ old('id_menu', $usergroupprivilage->id_menu) }}"
+                                    placeholder="Masukkan nama menu">
+
+                                <!-- error message untuk has view -->
+                                @error('id_menu')
+                                    <div class="alert alert-danger mt-2">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label class="font-weight-bold">Has view</label>
+                                <input id="edit_has_view_group" type="text"
+                                    class="form-control @error('has_view') is-invalid @enderror" name="has_view"
+                                    value="{{ old('has_view', $usergroupprivilage->has_view) }}"
+                                    placeholder="Masukkan Has view">
+
+                                <!-- error message untuk has view -->
+                                @error('has_view')
+                                    <div class="alert alert-danger mt-2">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label class="font-weight-bold">Has Create</label>
+                                <input id="edit_has_create_group" type="text"
+                                    class="form-control @error('has_create') is-invalid @enderror" name="has_create"
+                                    value="{{ old('has_create', $usergroupprivilage->has_create) }}"
+                                    placeholder="Masukkan Has Create">
+
+                                <!-- error message untuk has create -->
+                                @error('has_create')
+                                    <div class="alert alert-danger mt-2">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label class="font-weight-bold">Has Update</label>
+                                <input id="edit_has_update_group" type="text"
+                                    class="form-control @error('has_update') is-invalid @enderror" name="has_update"
+                                    value="{{ old('has_update', $usergroupprivilage->has_update) }}"
+                                    placeholder="Masukkan Has Update">
+
+                                <!-- error message untuk has update -->
+                                @error('has_update')
+                                    <div class="alert alert-danger mt-2">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label class="font-weight-bold">Has Delete</label>
+                                <input id="edit_has_delete_group" type="text"
+                                    class="form-control @error('has_delete') is-invalid @enderror" name="has_delete"
+                                    value="{{ old('has_delete', $usergroupprivilage->has_delete) }}"
+                                    placeholder="Masukkan has delete">
+
+                                <!-- error message untuk has delete -->
+                                @error('has_delete')
                                     <div class="alert alert-danger mt-2">
                                         {{ $message }}
                                     </div>

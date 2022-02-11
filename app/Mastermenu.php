@@ -20,4 +20,8 @@ class Mastermenu extends Model
     {
         return $this->hasMany(Userprivilage::class);
     }
+    public function usergroup()
+    {
+        return $this->hasMany(Usergroup::class);
+    }
 }

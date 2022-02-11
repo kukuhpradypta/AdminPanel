@@ -15,11 +15,12 @@ class CreateUserPrivilagesTable extends Migration
     {
         Schema::create('userprivilages', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('id_user');
-            $table->bigInteger('id_menu');
-            $table->string('has_create');
-            $table->string('has_update');
-            $table->string('has_delete');
+            $table->integer('id_user');
+            $table->integer('id_menu');
+            $table->smallInteger('has_view');
+            $table->smallInteger('has_create');
+            $table->smallInteger('has_update');
+            $table->smallInteger('has_delete');
             $table->softDeletes();
             $table->timestamps();
         });

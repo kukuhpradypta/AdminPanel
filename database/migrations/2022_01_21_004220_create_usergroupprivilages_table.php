@@ -15,7 +15,12 @@ class CreateUsergroupprivilagesTable extends Migration
     {
         Schema::create('usergroupprivilages', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('id_usergroup');
+            $table->integer('id_usergroup');
+            $table->integer('id_menu');
+            $table->smallInteger('has_view');
+            $table->smallInteger('has_create');
+            $table->smallInteger('has_update');
+            $table->smallInteger('has_delete');
             $table->softDeletes();
             $table->timestamps();
         });
