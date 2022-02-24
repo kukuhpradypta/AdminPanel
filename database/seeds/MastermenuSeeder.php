@@ -29,7 +29,7 @@ class MastermenuSeeder extends Seeder
                 'url' => 'mastermenu',
                 'sort' => '1',
                 'menugroup' => 'Mastermenu',
-                'ishidden' => '1',
+                'ishidden' => 0,
             ],
             [
                 'name' => 'User group',
@@ -37,7 +37,7 @@ class MastermenuSeeder extends Seeder
                 'url' => 'usergroup',
                 'sort' => '2',
                 'menugroup' => 'Usergroup',
-                'ishidden' => '1',
+                'ishidden' => 0,
             ],
             [
                 'name' => 'User privilage',
@@ -45,7 +45,7 @@ class MastermenuSeeder extends Seeder
                 'url' => 'userprivilage',
                 'sort' => '3',
                 'menugroup' => 'Userprivilage',
-                'ishidden' => '1',
+                'ishidden' => 0,
             ],
             [
                 'name' => 'User',
@@ -53,7 +53,7 @@ class MastermenuSeeder extends Seeder
                 'url' => 'user',
                 'sort' => '4',
                 'menugroup' => 'User',
-                'ishidden' => '1',
+                'ishidden' => 0,
             ],
             [
                 'name' => 'User group privilage',
@@ -61,7 +61,7 @@ class MastermenuSeeder extends Seeder
                 'url' => 'usergroupprivilage',
                 'sort' => '5',
                 'menugroup' => 'Usergroupprivilage',
-                'ishidden' => '1',
+                'ishidden' => 0,
             ],
         ];
 

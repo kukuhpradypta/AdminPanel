@@ -11,7 +11,14 @@ class UsergroupController extends Controller
 {
     public function index(Request $request)
     {
-        $mastermenus = Mastermenu::all();
+
+        $mastermenus = Mastermenu::where('ishidden', 0)->select('name', 'id', 'icon')->orderBy('sort', 'ASC')->get();
+        foreach ($mastermenus as $mn) {
+            $mn->has_view = 0;
+            $mn->has_create = 0;
+            $mn->has_edit = 0;
+            $mn->has_delete = 0;
+        }
         $usergroupprivilages = Usergroupprivilage::all();
         $usergroups = Usergroup::paginate(10);
         return view('usergroup.index', compact('usergroups', 'mastermenus', 'usergroupprivilages'));
@@ -19,26 +26,56 @@ class UsergroupController extends Controller
 
     public function store(Request $request)
     {
+
+        $privs = json_decode($request->privileges, true);
+        // dd($privs);
+        foreach ($privs as $usergroupprivilage) {
+
+
+
+            $usergroupprivilage['id_usergroup'] = $request->id_usergroup;
+            $usergroupprivilage['id_menu'] = $request->id_menu;
+            $usergroupprivilage['has_view'] = $request->has_view;
+            $usergroupprivilage['has_create'] = $request->has_create;
+            $usergroupprivilage['has_update'] = $request->has_update;
+            $usergroupprivilage['has_delete'] = $request->has_delete;
+
+            // Usergroupprivilage::insert($usergroupprivilage);
+            Usergroupprivilage::create([
+                'id_usergroup' => $usergroupprivilage['id_usergroup'],
+                'id_menu' => $usergroupprivilage['id_menu'],
+                'has_view' => $usergroupprivilage['has_view'],
+                'has_create' => $usergroupprivilage['has_create'],
+                'has_update' => $usergroupprivilage['has_update'],
+                'has_delete' => $usergroupprivilage['has_delete'],
+
+            ])->save();
+        };
         $usergroup['name'] = $request->name;
         Usergroup::insert($usergroup);
-        $usergroupprivilage['id_usergroup'] = $request->id_usergroup;
-        $usergroupprivilage['id_menu'] = $request->id_menu;
-        $usergroupprivilage['has_view'] = $request->has_view;
-        $usergroupprivilage['has_create'] = $request->has_create;
-        $usergroupprivilage['has_update'] = $request->has_update;
-        $usergroupprivilage['has_delete'] = $request->has_delete;
-        Usergroupprivilage::insert($usergroupprivilage);
+
+
+
         // $this->validate($request, [
 
-        //     'name'     => 'required',
+        //     'id_usergroup'     => 'required',
+        //     'id_menu'     => 'required',
+        //     'has_view'     => 'required',
+        //     'has_create'     => 'required',
+        //     'has_update'     => 'required',
+        //     'has_delete'     => 'required',
 
         // ]);
 
-        // $usergroup = Usergroup::create([
-        //     'name'     => $request->name,
+        // $usergroupprivilage = Usergroupprivilage::create([
+        //     'id_usergroup'     => $request->id_usergroup,
+        //     'id_menu'     => $request->id_menu,
+        //     'has_view'     => $request->has_view,
+        //     'has_create'     => $request->has_create,
+        //     'has_update'     => $request->has_update,
+        //     'has_delete'     => $request->has_delete,
 
         // ]);
-
         if ($usergroup) {
             //redirect dengan pesan sukses
             return redirect()->route('usergroup.index')->with(['success' => 'Data Berhasil Disimpan!']);
