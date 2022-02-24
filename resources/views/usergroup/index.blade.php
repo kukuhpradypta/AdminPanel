@@ -63,9 +63,7 @@
         //message with toastr
         @if (session()->has('success'))
             toastr.success('{{ session('success') }}', 'BERHASIL!');
-        
         @elseif(session()->has('error'))
-        
             toastr.error('{{ session('error') }}', 'GAGAL!');
         @endif
 
@@ -125,9 +123,8 @@
 
                             <div class="form-group">
                                 <label class="font-weight-bold">Nama</label>
-                                <input id="edit_nama_group" type="text" class="form-control @error('name') is-invalid @enderror"
-                                    name="name" value="{{ old('name', $usergroup->name) }}"
-                                    placeholder="Masukkan Nama usergroup">
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
+                                    value="{{ old('name') }}" placeholder="Masukkan Nama usergroup">
 
                                 <!-- error message untuk name -->
                                 @error('name')
@@ -136,53 +133,49 @@
                                     </div>
                                 @enderror
                             </div>
+
+
+
                             <div class="container pb-5">
-                                @foreach ($usergroupprivilages as $usergroupprivilage)
-                                    @foreach ($mastermenus as $mm)
-                                        <h5>{{ $mm->name }}</h5>
 
-
-                                        <div class="row mb-4">
-
-                                            <div class="col-4 form-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                    id="has_view_{{ $usergroupprivilage->id_menu }}"
-                                                    {{ $usergroupprivilage->has_view ? 'checked' : '' }}>
-                                                <label class="form-check-label"
-                                                    for="has_view_{{ $usergroupprivilage->id_menu }}">
-                                                    view
-                                                </label>
-                                            </div>
-                                            <div class="col-4 form-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                    id="has_create_{{ $usergroupprivilage->id_menu }}"
-                                                    {{ $usergroupprivilage->has_create ? 'checked' : '' }}>
-                                                <label class="form-check-label"
-                                                    for="has_create_{{ $usergroupprivilage->id_menu }}">
-                                                    create
-                                                </label>
-                                            </div>
-                                            <div class="col-4 form-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                    id="has_update_{{ $usergroupprivilage->id_menu }}"
-                                                    {{ $usergroupprivilage->has_update ? 'checked' : '' }}>
-                                                <label class="form-check-label"
-                                                    for="has_update_{{ $usergroupprivilage->id_menu }}">
-                                                    Update
-                                                </label>
-                                            </div>
-                                            <div class="col-4 form-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                    id="has_delete_{{ $usergroupprivilage->id_menu }}"
-                                                    {{ $usergroupprivilage->has_delete ? 'checked' : '' }}>
-                                                <label class="form-check-label"
-                                                    for="has_delete_{{ $usergroupprivilage->id_menu }}">
-                                                    Delete
-                                                </label>
-                                            </div>
+                                @foreach ($mastermenus as $mm)
+                                    <h5>{{ $mm->name }}</h5>
+                                    <div class="row mb-4">
+                                        <div class="col-4 form-check">
+                                            <input class="form-check-input privilege-input" type="checkbox" value=""
+                                                id="{{ $mm->id }}_has_view" data-id_menu="{{ $mm->id }}"
+                                                data-section="has_view">
+                                            <label class="form-check-label" for="{{ $mm->id }}_has_view">
+                                                view
+                                            </label>
                                         </div>
-                                    @endforeach
+                                        <div class="col-4 form-check">
+                                            <input class="form-check-input privilege-input" type="checkbox" value=""
+                                                id="{{ $mm->id }}_has_create" data-id_menu="{{ $mm->id }}"
+                                                data-section="has_create">
+                                            <label class="form-check-label" for="{{ $mm->id }}_has_create">
+                                                create
+                                            </label>
+                                        </div>
+                                        <div class="col-4 form-check">
+                                            <input class="form-check-input privilege-input" type="checkbox" value=""
+                                                id="{{ $mm->id }}_has_update" data-id_menu="{{ $mm->id }}"
+                                                data-section="has_update">
+                                            <label class="form-check-label" for="{{ $mm->id }}_has_update">
+                                                Update
+                                            </label>
+                                        </div>
+                                        <div class="col-4 form-check">
+                                            <input class="form-check-input privilege-input" type="checkbox" value=""
+                                                id="{{ $mm->id }}_has_delete" data-id_menu="{{ $mm->id }}"
+                                                data-section="has_delete">
+                                            <label class="form-check-label" for="{{ $mm->id }}_has_delete">
+                                                Delete
+                                            </label>
+                                        </div>
+                                    </div>
                                 @endforeach
+
                             </div>
 
                             <button type="submit" class="btn btn-md btn-primary"><i class="fas fa-edit">
