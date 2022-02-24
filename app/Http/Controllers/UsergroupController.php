@@ -26,23 +26,15 @@ class UsergroupController extends Controller
 
     public function store(Request $request)
     {
-
+        $usergroup['name'] = $request->name;
+        $userg = new Usergroup;
+        $userg->name = $request->name;
+        $userg->save();
         $privs = json_decode($request->privileges, true);
-        // dd($privs);
+
         foreach ($privs as $usergroupprivilage) {
-
-
-
-            $usergroupprivilage['id_usergroup'] = $request->id_usergroup;
-            $usergroupprivilage['id_menu'] = $request->id_menu;
-            $usergroupprivilage['has_view'] = $request->has_view;
-            $usergroupprivilage['has_create'] = $request->has_create;
-            $usergroupprivilage['has_update'] = $request->has_update;
-            $usergroupprivilage['has_delete'] = $request->has_delete;
-
-            // Usergroupprivilage::insert($usergroupprivilage);
             Usergroupprivilage::create([
-                'id_usergroup' => $usergroupprivilage['id_usergroup'],
+                'id_usergroup' => $userg->id,
                 'id_menu' => $usergroupprivilage['id_menu'],
                 'has_view' => $usergroupprivilage['has_view'],
                 'has_create' => $usergroupprivilage['has_create'],
@@ -51,31 +43,8 @@ class UsergroupController extends Controller
 
             ])->save();
         };
-        $usergroup['name'] = $request->name;
-        Usergroup::insert($usergroup);
 
 
-
-        // $this->validate($request, [
-
-        //     'id_usergroup'     => 'required',
-        //     'id_menu'     => 'required',
-        //     'has_view'     => 'required',
-        //     'has_create'     => 'required',
-        //     'has_update'     => 'required',
-        //     'has_delete'     => 'required',
-
-        // ]);
-
-        // $usergroupprivilage = Usergroupprivilage::create([
-        //     'id_usergroup'     => $request->id_usergroup,
-        //     'id_menu'     => $request->id_menu,
-        //     'has_view'     => $request->has_view,
-        //     'has_create'     => $request->has_create,
-        //     'has_update'     => $request->has_update,
-        //     'has_delete'     => $request->has_delete,
-
-        // ]);
         if ($usergroup) {
             //redirect dengan pesan sukses
             return redirect()->route('usergroup.index')->with(['success' => 'Data Berhasil Disimpan!']);
@@ -85,7 +54,7 @@ class UsergroupController extends Controller
         }
     }
 
-    public function update(Request $request, Usergroup $usergroup)
+    public function update(Request $request, Usergroup $usergroup, Usergroupprivilage $usergroupprivilage)
     {
         $this->validate($request, [
             'name'     => 'required',
@@ -96,6 +65,27 @@ class UsergroupController extends Controller
 
         $usergroup->update([
             'name'     => $request->name,
+
+        ]);
+        $this->validate($request, [
+            'id_usergroup'     => 'required',
+            'id_menu'     => 'required',
+            'has_view'     => 'required',
+            'has_create'     => 'required',
+            'has_update'     => 'required',
+            'has_delete'     => 'required',
+        ]);
+
+        //get data usergroup by ID
+        $usergroupprivilage = Usergroupprivilage::findOrFail($usergroupprivilage->id);
+
+        $usergroupprivilage->update([
+            'id_usergroup'     => $request->id_usergroup,
+            'id_menu'     => $request->id_menu,
+            'has_view'     => $request->has_view,
+            'has_create'     => $request->has_create,
+            'has_update'     => $request->has_update,
+            'has_delete'     => $request->has_delete,
 
         ]);
 
@@ -110,9 +100,11 @@ class UsergroupController extends Controller
 
     public function destroy($id)
     {
-
         $usergroup = Usergroup::findOrFail($id);
         $usergroup->delete();
+        $usergroupprivilage = Usergroupprivilage::findOrFail($id);
+        $usergroupprivilage->delete();
+
 
         if ($usergroup) {
             //redirect dengan pesan sukses

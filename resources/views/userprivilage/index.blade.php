@@ -59,7 +59,6 @@
                                     <div class="alert alert-danger">
                                         Data usergroup belum Tersedia.
                                     </div>
-
                                 @endforelse
                             </tbody>
                         </table>
@@ -75,13 +74,9 @@
     <script>
         //message with toastr
         @if (session()->has('success'))
-        
             toastr.success('{{ session('success') }}', 'BERHASIL!');
-        
         @elseif(session()->has('error'))
-        
             toastr.error('{{ session('error') }}', 'GAGAL!');
-        
         @endif
         $(document).ready(function() {});
 
@@ -169,11 +164,10 @@
                             </div>
                             <div class="form-group">
                                 <label class="font-weight-bold">Has view</label>
-                                <input id="edit_has_view_group" type="text"
-                                    class="form-control @error('has_view') is-invalid @enderror" name="has_view"
-                                    value="{{ old('has_view', $userprivilage->has_view) }}" placeholder="Masukkan Has view">
+                                <input type="text" class="form-control @error('has_view') is-invalid @enderror" name="has_view"
+                                    value="{{ old('has_view') }}" placeholder="Masukkan Has view">
 
-                                <!-- error message untuk has view -->
+                                <!-- error message untuk name -->
                                 @error('has_view')
                                     <div class="alert alert-danger mt-2">
                                         {{ $message }}
@@ -182,12 +176,10 @@
                             </div>
                             <div class="form-group">
                                 <label class="font-weight-bold">Has Create</label>
-                                <input id="edit_has_create_group" type="text"
-                                    class="form-control @error('has_create') is-invalid @enderror" name="has_create"
-                                    value="{{ old('has_create', $userprivilage->has_create) }}"
-                                    placeholder="Masukkan Has Create">
+                                <input type="text" class="form-control @error('has_create') is-invalid @enderror"
+                                    name="has_create" value="{{ old('has_create') }}" placeholder="Masukkan Has Create">
 
-                                <!-- error message untuk has create -->
+                                <!-- error message untuk name -->
                                 @error('has_create')
                                     <div class="alert alert-danger mt-2">
                                         {{ $message }}
@@ -196,12 +188,10 @@
                             </div>
                             <div class="form-group">
                                 <label class="font-weight-bold">Has Update</label>
-                                <input id="edit_has_update_group" type="text"
-                                    class="form-control @error('has_update') is-invalid @enderror" name="has_update"
-                                    value="{{ old('has_update', $userprivilage->has_update) }}"
-                                    placeholder="Masukkan Has Update">
+                                <input type="text" class="form-control @error('has_update') is-invalid @enderror"
+                                    name="has_update" value="{{ old('has_update') }}" placeholder="Masukkan Has Update">
 
-                                <!-- error message untuk has update -->
+                                <!-- error message untuk name -->
                                 @error('has_update')
                                     <div class="alert alert-danger mt-2">
                                         {{ $message }}
@@ -210,12 +200,10 @@
                             </div>
                             <div class="form-group">
                                 <label class="font-weight-bold">Has Delete</label>
-                                <input id="edit_has_delete_group" type="text"
-                                    class="form-control @error('has_delete') is-invalid @enderror" name="has_delete"
-                                    value="{{ old('has_delete', $userprivilage->has_delete) }}"
-                                    placeholder="Masukkan has delete">
+                                <input type="text" class="form-control @error('has_delete') is-invalid @enderror"
+                                    name="has_delete" value="{{ old('has_delete') }}" placeholder="Masukkan Has Delete">
 
-                                <!-- error message untuk has delete -->
+                                <!-- error message untuk name -->
                                 @error('has_delete')
                                     <div class="alert alert-danger mt-2">
                                         {{ $message }}
