@@ -67,10 +67,10 @@
             <div class="main-sidebar">
                 <aside id="sidebar-wrapper">
                     <div class="sidebar-brand">
-                        <a href="index.html">Stisla</a>
+                        <a href="index.html">Admin Panel</a>
                     </div>
                     <div class="sidebar-brand sidebar-brand-sm">
-                        <a href="index.html">St</a>
+                        <a href="index.html">AP</a>
                     </div>
                     <ul class="sidebar-menu">
                         {{-- <li class="menu-header">Dashboard</li> --}}
@@ -105,11 +105,10 @@
             </div>
             <footer class="main-footer">
                 <div class="footer-left">
-                    Copyright &copy; 2018 <div class="bullet"></div> Design By <a
-                        href="https://nauval.in/">Muhamad Nauval Azhar</a>
+                    Copyright &copy; <div class="bullet"></div> 
                 </div>
                 <div class="footer-right">
-                    2.3.0
+                
                 </div>
             </footer>
         </div>
