@@ -123,8 +123,8 @@
 
                             <div class="form-group">
                                 <label class="font-weight-bold">Nama</label>
-                                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
-                                    value="{{ old('name') }}" placeholder="Masukkan Nama usergroup">
+                                <input id="edit_nama_group" type="text" class="form-control @error('name') is-invalid @enderror"
+                                    name="name" value="{{ old('name', $usergroup->name) }}" placeholder="Masukkan Nama user">
 
                                 <!-- error message untuk name -->
                                 @error('name')
@@ -144,7 +144,7 @@
                                         <div class="col-4 form-check">
                                             <input class="form-check-input privilege-input" type="checkbox" value=""
                                                 id="{{ $mm->id }}_has_view" data-id_menu="{{ $mm->id }}"
-                                                data-section="has_view">
+                                                data-section="has_view" value="{{ old('has_view', $mm->has_view) }}">
                                             <label class="form-check-label" for="{{ $mm->id }}_has_view">
                                                 view
                                             </label>
@@ -152,7 +152,7 @@
                                         <div class="col-4 form-check">
                                             <input class="form-check-input privilege-input" type="checkbox" value=""
                                                 id="{{ $mm->id }}_has_create" data-id_menu="{{ $mm->id }}"
-                                                data-section="has_create">
+                                                data-section="has_create" value="{{ old('has_create', $mm->has_create) }}">
                                             <label class="form-check-label" for="{{ $mm->id }}_has_create">
                                                 create
                                             </label>
@@ -160,7 +160,7 @@
                                         <div class="col-4 form-check">
                                             <input class="form-check-input privilege-input" type="checkbox" value=""
                                                 id="{{ $mm->id }}_has_update" data-id_menu="{{ $mm->id }}"
-                                                data-section="has_update">
+                                                data-section="has_update" value="{{ old('has_update', $mm->has_update) }}">
                                             <label class="form-check-label" for="{{ $mm->id }}_has_update">
                                                 Update
                                             </label>
@@ -168,7 +168,7 @@
                                         <div class="col-4 form-check">
                                             <input class="form-check-input privilege-input" type="checkbox" value=""
                                                 id="{{ $mm->id }}_has_delete" data-id_menu="{{ $mm->id }}"
-                                                data-section="has_delete">
+                                                data-section="has_delete" value="{{ old('has_delete', $mm->has_delete) }}">
                                             <label class="form-check-label" for="{{ $mm->id }}_has_delete">
                                                 Delete
                                             </label>

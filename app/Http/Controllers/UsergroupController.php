@@ -54,7 +54,7 @@ class UsergroupController extends Controller
         }
     }
 
-    public function update(Request $request, Usergroup $usergroup, Usergroupprivilage $usergroupprivilage)
+    public function update(Request $request, Usergroup $usergroup)
     {
         $this->validate($request, [
             'name'     => 'required',
@@ -63,31 +63,33 @@ class UsergroupController extends Controller
         //get data usergroup by ID
         $usergroup = Usergroup::findOrFail($usergroup->id);
 
+
         $usergroup->update([
             'name'     => $request->name,
 
         ]);
-        $this->validate($request, [
-            'id_usergroup'     => 'required',
-            'id_menu'     => 'required',
-            'has_view'     => 'required',
-            'has_create'     => 'required',
-            'has_update'     => 'required',
-            'has_delete'     => 'required',
-        ]);
 
-        //get data usergroup by ID
-        $usergroupprivilage = Usergroupprivilage::findOrFail($usergroupprivilage->id);
+        // $this->validate($request, [
+        //     'id_usergroup'     => 'required',
+        //     'id_menu'     => 'required',
+        //     'has_view'     => 'required',
+        //     'has_create'     => 'required',
+        //     'has_update'     => 'required',
+        //     'has_delete'     => 'required',
+        // ]);
 
-        $usergroupprivilage->update([
-            'id_usergroup'     => $request->id_usergroup,
-            'id_menu'     => $request->id_menu,
-            'has_view'     => $request->has_view,
-            'has_create'     => $request->has_create,
-            'has_update'     => $request->has_update,
-            'has_delete'     => $request->has_delete,
+        // //get data usergroup by ID
+        // $usergroupprivilage = Usergroupprivilage::findOrFail($usergroupprivilage->id);
 
-        ]);
+        // $usergroupprivilage->update([
+        //     'id_usergroup'     => $request->id_usergroup,
+        //     'id_menu'     => $request->id_menu,
+        //     'has_view'     => $request->has_view,
+        //     'has_create'     => $request->has_create,
+        //     'has_update'     => $request->has_update,
+        //     'has_delete'     => $request->has_delete,
+
+        // ]);
 
         if ($usergroup) {
             //redirect dengan pesan sukses
@@ -102,8 +104,8 @@ class UsergroupController extends Controller
     {
         $usergroup = Usergroup::findOrFail($id);
         $usergroup->delete();
-        $usergroupprivilage = Usergroupprivilage::findOrFail($id);
-        $usergroupprivilage->delete();
+        // $usergroupprivilage = Usergroupprivilage::findOrFail($id);
+        // $usergroupprivilage->delete();
 
 
         if ($usergroup) {
