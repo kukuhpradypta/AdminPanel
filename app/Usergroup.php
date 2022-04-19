@@ -13,7 +13,7 @@ class Usergroup extends Model
     ];
     public function usergroupprivilage()
     {
-        return $this->hasMany(Usergroupprivilage::class);
+        return $this->hasMany(Usergroupprivilage::class, 'id_usergroup', 'id');
     }
     public function mastermenu()
     {

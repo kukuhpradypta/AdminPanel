@@ -54,42 +54,46 @@ class UsergroupController extends Controller
         }
     }
 
-    public function update(Request $request, Usergroup $usergroup)
+    // public function update(Request $request, Usergroup $usergroup)
+    // {
+    //     $this->validate($request, [
+    //         'name'     => 'required',
+    //     ]);
+
+    //     //get data usergroup by ID
+    //     $usergroup = Usergroup::findOrFail($usergroup->id);
+
+
+
+    //     $usergroup->update([
+    //         'name'     => $request->name,
+
+    //     ]);
+
+    //     if ($usergroup) {
+    //         //redirect dengan pesan sukses
+    //         return redirect()->route('usergroup.index')->with(['success' => 'Data Berhasil Diupdate!']);
+    //     } else {
+    //         //redirect dengan pesan error
+    //         return redirect()->route('usergroup.index')->with(['error' => 'Data Gagal Diupdate!']);
+    //     }
+    // }
+    public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'name'     => 'required',
-        ]);
+        $usergroup = Usergroup::find($id);
+        $usergroup = Usergroup::where('id', $id)->first();
+        $usergroup->name = $request->input('name');
+        $usergroup->save();
 
-        //get data usergroup by ID
-        $usergroup = Usergroup::findOrFail($usergroup->id);
-
-
-        $usergroup->update([
-            'name'     => $request->name,
-
-        ]);
-
-        // $this->validate($request, [
-        //     'id_usergroup'     => 'required',
-        //     'id_menu'     => 'required',
-        //     'has_view'     => 'required',
-        //     'has_create'     => 'required',
-        //     'has_update'     => 'required',
-        //     'has_delete'     => 'required',
-        // ]);
-
-        // //get data usergroup by ID
-        // $usergroupprivilage = Usergroupprivilage::findOrFail($usergroupprivilage->id);
-
-        // $usergroupprivilage->update([
-        //     'id_usergroup'     => $request->id_usergroup,
-        //     'id_menu'     => $request->id_menu,
-        //     'has_view'     => $request->has_view,
-        //     'has_create'     => $request->has_create,
-        //     'has_update'     => $request->has_update,
-        //     'has_delete'     => $request->has_delete,
-
-        // ]);
+        $usergroupprivilage = Usergroupprivilage::find($id);
+        $usergroupprivilage = Usergroupprivilage::where('id', $id)->first();
+        $usergroupprivilage->id_usergroup = $request->input('id_usergroup');
+        $usergroupprivilage->id_menu = $request->input('id_menu');
+        $usergroupprivilage->has_create = $request->input('has_create');
+        $usergroupprivilage->has_view = $request->input('has_view');
+        $usergroupprivilage->has_update = $request->input('has_update');
+        $usergroupprivilage->has_delete = $request->input('has_delete');
+        $usergroupprivilage->save();
 
         if ($usergroup) {
             //redirect dengan pesan sukses
@@ -102,10 +106,13 @@ class UsergroupController extends Controller
 
     public function destroy($id)
     {
-        $usergroup = Usergroup::findOrFail($id);
+        $usergroup = Usergroup::findOrfail($id);
+        $gprivillage = Usergroupprivilage::all()->where('id_usergroup', $id);
         $usergroup->delete();
-        // $usergroupprivilage = Usergroupprivilage::findOrFail($id);
-        // $usergroupprivilage->delete();
+        foreach ($gprivillage as $value) {
+            $usergp = Usergroupprivilage::findOrfail($value->id);
+            $usergp->delete();
+        }
 
 
         if ($usergroup) {
@@ -121,11 +128,14 @@ class UsergroupController extends Controller
     {
         if ($request->id) {
             $data = Usergroup::find($request->id);
+            $master = Mastermenu::all();
             if ($data) {
                 return response()->json([
                     'status' => 'success',
                     'msg' => 'berhasil mendapatkan data',
-                    'data' => $data
+                    'data' => $data,
+                    'usergp' => $data->usergroupprivilage,
+                    'master' => $master
                 ]);
             } else {
                 return response()->json([
@@ -142,4 +152,35 @@ class UsergroupController extends Controller
             ]);
         }
     }
+    // public function find(Request $request)
+    // {
+    //     if ($request->id) {
+    //         $data = Usergroup::find($request->id);
+    //         $master = Mastermenu::all();
+
+    //         if ($data) {
+    //             foreach ($data as $value) {
+    //                 return response()->json([
+    //                     'status' => 'success',
+    //                     'msg' => 'berhasil mendapatkan data',
+    //                     'data' => $data,
+    //                     'usergp' => $data->usergroupprivilage,
+    //                     'master' => $master
+    //                 ]);
+    //             }
+    //         } else {
+    //             return response()->json([
+    //                 'status' => 'error',
+    //                 'msg' => 'not found',
+    //                 'code' => 404
+    //             ]);
+    //         }
+    //     } else {
+    //         return response()->json([
+    //             'status' => 'error',
+    //             'msg' => 'bad request',
+    //             'code' => 402
+    //         ]);
+    //     }
+    // }
 }

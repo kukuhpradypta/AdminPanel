@@ -21,24 +21,14 @@ class UserprivilageController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $userprivilage['id_user'] = $request->id_user;
+        $userprivilage['id_menu'] = $request->id_menu;
+        $userprivilage['has_view'] = $request->has_view;
+        $userprivilage['has_create'] = $request->has_create;
+        $userprivilage['has_update'] = $request->has_update;
+        $userprivilage['has_delete'] = $request->has_delete;
 
-            'id_user'     => 'required',
-            'id_menu'     => 'required',
-            'has_create'     => 'required',
-            'has_update'     => 'required',
-            'has_delete'     => 'required',
-
-        ]);
-
-        $userprivilage = Userprivilage::create([
-            'id_user'     => $request->id_user,
-            'id_menu'     => $request->id_menu,
-            'has_create'     => $request->has_create,
-            'has_update'     => $request->has_update,
-            'has_delete'     => $request->has_delete,
-
-        ]);
+        Userprivilage::insert($userprivilage);
 
         if ($userprivilage) {
             //redirect dengan pesan sukses

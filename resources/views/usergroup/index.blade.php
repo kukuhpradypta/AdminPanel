@@ -77,10 +77,15 @@
 
                 });
         }
+
         // FIND DATA USER GROUP
+
+
+
+
         function findData(id) {
             $.ajax({
-                url: `{{ env('APP_URL') }}/usergroup/find/${id}`,
+                url: '{{ env('APP_URL') }}/usergroup/find/' + id,
                 method: 'GET',
                 accept: 'application/json',
                 data: {
@@ -92,6 +97,40 @@
                         $("#edit_nama_group").val(response.data.name);
                         $("#exampleModal form").attr('action', `http://localhost:8000/usergroup/${id}`);
                         $("#exampleModal").modal();
+                        var usergrup = [];
+                        var usergp = response.usergp;
+                        // console.log(usergp);
+                        usergp.forEach(element => {
+                            // console.log(element);
+                            if (element.has_view == 1) {
+                                document.getElementById(element.id_menu + '_has_view').checked = true;
+                            }
+                            if (element.has_create == 1) {
+                                document.getElementById(element.id_menu + '_has_create').checked = true;
+                            }
+                            if (element.has_update == 1) {
+                                document.getElementById(element.id_menu + '_has_update').checked = true;
+                            }
+                            if (element.has_delete == 1) {
+                                document.getElementById(element.id_menu + '_has_delete').checked = true;
+                            }
+
+
+                        });
+                        // console.log(usergp);
+                        $('#close_edit').click(function() {
+                            var master = response.master;
+                            master.forEach(element => {
+                                document.getElementById(element.id + '_has_view').checked =
+                                    false;
+                                document.getElementById(element.id + '_has_create').checked =
+                                    false;
+                                document.getElementById(element.id + '_has_update').checked =
+                                    false;
+                                document.getElementById(element.id + '_has_delete').checked =
+                                    false;
+                            });
+                        });
                     } else {
                         alert(response.msg)
                     }
@@ -111,7 +150,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Edit Data</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" id="close_edit" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>

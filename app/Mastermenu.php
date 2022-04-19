@@ -16,12 +16,12 @@ class Mastermenu extends Model
         'menugroup',
         'ishidden',
     ];
-    public function userprivilage()
-    {
-        return $this->hasMany(Userprivilage::class);
-    }
     public function usergroup()
     {
         return $this->hasMany(Usergroup::class);
+    }
+    public function user()
+    {
+        return $this->hasMany(User::class);
     }
 }

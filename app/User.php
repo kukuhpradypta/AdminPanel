@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
+
+
 {
     use Notifiable;
 
@@ -41,5 +43,9 @@ class User extends Authenticatable
     public function userprivilage()
     {
         return $this->hasMany(Userprivilage::class);
+    }
+    public function mastermenu()
+    {
+        return $this->belongsTo(Mastermenu::class);
     }
 }

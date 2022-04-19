@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Mastermenu;
 use App\User;
+use App\Userprivilage;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -13,10 +14,17 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
-        $mastermenus = Mastermenu::all();
 
+        $mastermenus = Mastermenu::where('ishidden', 0)->select('name', 'id', 'icon')->orderBy('sort', 'ASC')->get();
+        foreach ($mastermenus as $mn) {
+            $mn->has_view = 0;
+            $mn->has_create = 0;
+            $mn->has_edit = 0;
+            $mn->has_delete = 0;
+        }
+        $userprivilages = Userprivilage::all();
         $users = User::paginate(10);
-        return view('user.index', compact('users', 'mastermenus',));
+        return view('user.index', compact('users', 'mastermenus', 'userprivilages'));
     }
 
     public function create()
@@ -28,20 +36,44 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $user = $request->validate([
             'name' => 'required|min:3|max:255',
             'email' => 'required|email:dns|unique:users',
             'password' => 'required|min:3|max:255',
         ]);
+        $userg = new User;
+        $userg->name = $request->name;
+        $userg->email = $request->email;
+        $userg->password = $request->password;
+        $userg['password'] = Hash::make($userg['password']);
+        $userg->save();
+        $privs = json_decode($request->privileges, true);
 
-        //   $validatedData['password'] = bcrypt($validatedData['password']);
+        foreach ($privs as $userprivilage) {
+            Userprivilage::create([
+                'id_user' => $userg->id,
+                'id_menu' => $userprivilage['id_menu'],
+                'has_view' => $userprivilage['has_view'],
+                'has_create' => $userprivilage['has_create'],
+                'has_update' => $userprivilage['has_update'],
+                'has_delete' => $userprivilage['has_delete'],
 
-        $validatedData['password'] = Hash::make($validatedData['password']);
+            ])->save();
+        };
 
-        User::create($validatedData);
 
-        //   $request->session()->flash('success', 'Registration successfull! Please login');
-        if ($validatedData) {
+        // $validatedData = $request->validate([
+        //     'name' => 'required|min:3|max:255',
+        //     'email' => 'required|email:dns|unique:users',
+        //     'password' => 'required|min:3|max:255',
+        // ]);
+
+        // $validatedData['password'] = Hash::make($validatedData['password']);
+
+        // User::create($validatedData);
+
+        $request->session()->flash('success', 'Registration successfull! Please login');
+        if ($user) {
             //redirect dengan pesan sukses
             return redirect()->route('user.index')->with(['success' => 'Data Berhasil Diupdate!']);
         } else {
@@ -99,8 +131,13 @@ class UserController extends Controller
     public function destroy($id)
     {
 
-        $user = User::findOrFail($id);
+        $user = User::findOrfail($id);
+        $gprivillage = Userprivilage::all()->where('id_user', $id);
         $user->delete();
+        foreach ($gprivillage as $value) {
+            $usergp = Userprivilage::findOrfail($value->id);
+            $usergp->delete();
+        }
 
         if ($user) {
             //redirect dengan pesan sukses
