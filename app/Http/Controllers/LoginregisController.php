@@ -11,7 +11,7 @@ class LoginregisController extends Controller
 {
   public function index(Request $request)
   {
-    if($request->session()->get('id')){
+    if ($request->session()->get('id')) {
       return redirect('/');
     }
     return view('loginregis.index');
@@ -25,13 +25,10 @@ class LoginregisController extends Controller
       'password' => 'required|min:3|max:255',
     ]);
 
-    //   $validatedData['password'] = bcrypt($validatedData['password']);
-
     $validatedData['password'] = Hash::make($validatedData['password']);
 
     User::create($validatedData);
 
-    //   $request->session()->flash('success', 'Registration successfull! Please login');
     return redirect('/loginregis')->with('success', 'Registration successfull! Please login');
   }
 
@@ -43,7 +40,7 @@ class LoginregisController extends Controller
     ]);
 
     if (Auth::attempt($credentials)) {
-      // Authentication passed...
+
       $request->session()->put('id', Auth::id());
       $request->session()->regenerate();
       return redirect('/');

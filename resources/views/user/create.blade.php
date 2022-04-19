@@ -52,6 +52,21 @@
                                     </div>
                                 @enderror
                             </div>
+                            <div class="form-group">
+                                <label class="font-weight-bold">Role</label>
+                                <select type="text" class="form-control" name="role">
+                                    @foreach ($role as $roleuser)
+                                        <option value="{{ $roleuser->name }}">{{ $roleuser->name }}</option>
+                                    @endforeach
+                                </select>
+
+                                <!-- error message untuk password -->
+                                @error('role')
+                                    <div class="alert alert-danger mt-2">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
                             <div class="container pb-5">
 
                                 @foreach ($mastermenus as $mm)

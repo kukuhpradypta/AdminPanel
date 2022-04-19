@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Mastermenu;
 use App\User;
+use App\Usergroup;
 use App\Userprivilage;
 use Illuminate\Support\Facades\Hash;
 
@@ -29,9 +30,9 @@ class UserController extends Controller
 
     public function create()
     {
-
+        $role = Usergroup::all();
         $mastermenus = Mastermenu::all();
-        return view('user.create', compact('mastermenus'));
+        return view('user.create', compact('mastermenus', 'role'));
     }
 
     public function store(Request $request)
@@ -62,23 +63,13 @@ class UserController extends Controller
         };
 
 
-        // $validatedData = $request->validate([
-        //     'name' => 'required|min:3|max:255',
-        //     'email' => 'required|email:dns|unique:users',
-        //     'password' => 'required|min:3|max:255',
-        // ]);
-
-        // $validatedData['password'] = Hash::make($validatedData['password']);
-
-        // User::create($validatedData);
-
-        $request->session()->flash('success', 'Registration successfull! Please login');
+        // $request->session()->flash('success', 'Registration successfull! Please login');
         if ($user) {
             //redirect dengan pesan sukses
-            return redirect()->route('user.index')->with(['success' => 'Data Berhasil Diupdate!']);
+            return redirect()->route('user.index')->with(['success' => 'Data Berhasil Disimpan!']);
         } else {
             //redirect dengan pesan error
-            return redirect()->route('user.index')->with(['error' => 'Data Gagal Diupdate!']);
+            return redirect()->route('user.index')->with(['error' => 'Data Gagal Disimpan!']);
         }
     }
 
